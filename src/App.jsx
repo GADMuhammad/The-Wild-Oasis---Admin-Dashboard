@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 
-const router = createBrowserRouter([{ path: "", element: goal }]);
+const router = createBrowserRouter([{ path: "", element: "" }]);
 
 export default function App() {
   return <div>App</div>;
