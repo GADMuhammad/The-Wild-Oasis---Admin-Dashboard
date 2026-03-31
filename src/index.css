@@ -62,7 +62,7 @@
 }
 
 /* 2. Dark Mode Support using Variable Overrides */
-@variant dark (&:where(.dark, .dark *)) {
+.dark {
   @theme {
     --color-grey-0: #18212f;
     --color-grey-50: #111827;
@@ -96,36 +96,37 @@
     --image-opacity: 90%;
   }
 }
+.dark {
+  /* 3. Base Styles and Reset */
+  @layer base {
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      padding: 0;
+      margin: 0;
+      /* Smooth transitions for theme switching */
+      transition:
+        background-color 0.3s,
+        border 0.3s;
+    }
 
-/* 3. Base Styles and Reset */
-@layer base {
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
-    /* Smooth transitions for theme switching */
-    transition:
-      background-color 0.3s,
-      border 0.3s;
-  }
+    html {
+      /* 62.5% scale makes 1rem = 10px for easier math */
+      font-size: 62.5%;
+    }
 
-  html {
-    /* 62.5% scale makes 1rem = 10px for easier math */
-    font-size: 62.5%;
-  }
-
-  body {
-    font-family: var(--font-sans);
-    color: var(--color-grey-700);
-    background-color: var(--color-grey-0);
-    transition:
-      color 0.3s,
-      background-color 0.3s;
-    min-height: 100vh;
-    line-height: 1.5;
-    font-size: 1.6rem;
+    body {
+      font-family: var(--font-sans);
+      color: var(--color-grey-700);
+      background-color: var(--color-grey-0);
+      transition:
+        color 0.3s,
+        background-color 0.3s;
+      min-height: 100vh;
+      line-height: 1.5;
+      font-size: 1.6rem;
+    }
   }
 
   input,

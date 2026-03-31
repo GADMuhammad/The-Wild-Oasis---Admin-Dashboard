@@ -11,7 +11,8 @@ export default defineConfig([
     extends: [js.configs.recommended, reactHooks.configs.flat.recommended, reactRefresh.configs.vite],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      // globals: globals.browser,
+      globals: { ...globals.browser, ...globals.es2020, ...globals.node },
       parserOptions: {
         ecmaVersion: "latest",
         ecmaFeatures: { jsx: true },
@@ -29,6 +30,7 @@ export default defineConfig([
       "no-console": "warn",
       "no-constant-condition": "error",
       "no-dupe-else-if": "error",
+      "no-dupe-class-members": "error",
     },
   },
 ]);
