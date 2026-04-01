@@ -1,4 +1,8 @@
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Bookings from "./pages/Bookings";
 import Cabins from "./pages/Cabins";
@@ -16,8 +20,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <AppLayout />,
     children: [
-      { index: true, element: <Dashboard /> },
-      // { path: "/dashboard", element: <Dashboard /> },
+      { path: "/dashboard", element: <Dashboard /> },
       { path: "/bookings", Component: Bookings },
       { path: "/cabins", Component: Cabins },
       { path: "/users", Component: Users },
