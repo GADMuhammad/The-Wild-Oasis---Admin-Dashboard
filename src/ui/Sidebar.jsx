@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Logo from "./Logo";
-import MainNav from "./MainNav";
+// import MainNav from "./MainNav";
 
 const StyledSidebar = styled.aside`
   background-color: var(--color-grey-0);
@@ -15,10 +15,10 @@ const StyledSidebar = styled.aside`
 
 function Sidebar() {
   return (
-    <StyledSidebar>
+    <aside className="bg-grey-0">
       <Logo />
-      <MainNav />
-    </StyledSidebar>
+      {/* <MainNav /> */}
+    </aside>
   );
 }
 

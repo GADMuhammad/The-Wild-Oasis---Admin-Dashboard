@@ -16,7 +16,7 @@
   --color-brand-800: #3730a3;
   --color-brand-900: #312e81;
 
-  /* Grey Scale */
+  /* Grey Scale (Light Mode Defaults) */
   --color-grey-0: #fff;
   --color-grey-50: #f9fafb;
   --color-grey-100: #f3f4f6;
@@ -59,11 +59,10 @@
   --color-backdrop: rgba(255, 255, 255, 0.1);
   --image-grayscale: 0;
   --image-opacity: 100%;
-}
 
-/* 2. Dark Mode Support using Variable Overrides */
-.dark {
-  @theme {
+  --grid-template-column-content: 48rem;
+
+  /* @variant dark {
     --color-grey-0: #18212f;
     --color-grey-50: #111827;
     --color-grey-100: #1f2937;
@@ -94,39 +93,38 @@
 
     --image-grayscale: 10%;
     --image-opacity: 90%;
-  }
+  } */
 }
-.dark {
-  /* 3. Base Styles and Reset */
-  @layer base {
-    *,
-    *::before,
-    *::after {
-      box-sizing: border-box;
-      padding: 0;
-      margin: 0;
-      /* Smooth transitions for theme switching */
-      transition:
-        background-color 0.3s,
-        border 0.3s;
-    }
 
-    html {
-      /* 62.5% scale makes 1rem = 10px for easier math */
-      font-size: 62.5%;
-    }
+/* 3. Base Styles and Reset */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    /* Smooth transitions for theme switching */
+    transition:
+      background-color 0.3s,
+      border 0.3s;
+  }
 
-    body {
-      font-family: var(--font-sans);
-      color: var(--color-grey-700);
-      background-color: var(--color-grey-0);
-      transition:
-        color 0.3s,
-        background-color 0.3s;
-      min-height: 100vh;
-      line-height: 1.5;
-      font-size: 1.6rem;
-    }
+  html {
+    /* 62.5% scale makes 1rem = 10px for easier math */
+    font-size: 62.5%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-grey-700);
+    background-color: var(--color-grey-0);
+    transition:
+      color 0.3s,
+      background-color 0.3s;
+    min-height: 100vh;
+    line-height: 1.5;
+    font-size: 1.6rem;
   }
 
   input,
@@ -140,6 +138,7 @@
   button {
     cursor: pointer;
   }
+
   *:disabled {
     cursor: not-allowed;
   }
@@ -163,11 +162,12 @@
     color: inherit;
     text-decoration: none;
   }
+
   ul {
     list-style: none;
   }
 
-  /* Prevent text overflow */
+  /* Prevent text overflow and handle hyphens */
   p,
   h1,
   h2,
@@ -183,7 +183,7 @@
 
   img {
     max-width: 100%;
-    /* Apply dark mode filters */
+    /* Apply dynamic filters based on light/dark mode variables */
     -webkit-filter: grayscale(var(--image-grayscale)) opacity(var(--image-opacity));
     filter: grayscale(var(--image-grayscale)) opacity(var(--image-opacity));
   }
