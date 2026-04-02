@@ -45,6 +45,9 @@ export default [
       "no-constant-condition": "error",
       "no-dupe-else-if": "error",
       "no-dupe-class-members": "error",
+      "no-await-in-loop": "warn",
+      "no-duplicate-imports": "warn",
+      "no-self-compare": "warn",
     },
   },
 ];

@@ -2,10 +2,10 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import {
   HiOutlineHome,
-  HiOutlineCalendarDays,
+  HiOutlineUsers,
   HiOutlineArchiveBox,
+  HiOutlineCalendarDays,
 } from "react-icons/hi2";
-import { HiOutlineUsers } from "react-icons/hi";
 
 const StyledNavLink = styled(NavLink)`
   &:link,
@@ -29,7 +29,16 @@ const StyledNavLink = styled(NavLink)`
   &.active:link,
   &.active:visited {
     color: var(--color-grey-800);
+  }
+
+  &:hover {
     background-color: var(--color-grey-100);
+  }
+
+  &:active,
+  &.active:link,
+  &.active:visited {
+    background-color: var(--color-grey-200);
   }
 
   & svg {
