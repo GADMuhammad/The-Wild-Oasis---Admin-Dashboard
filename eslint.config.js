@@ -12,14 +12,15 @@ export default [
     files: ["**/*.{js,jsx}"],
     languageOptions: {
       ecmaVersion: 2020,
-      globals: globals.browser,
+      sourceType: "module",
+      globals: { ...globals.browser, ...globals.es2020 },
       parserOptions: {
         ecmaVersion: "latest",
         ecmaFeatures: { jsx: true },
         sourceType: "module",
       },
     },
-    settings: { react: { version: "18.3" } },
+    settings: { react: { version: "detect" } },
     plugins: {
       react,
       "react-hooks": reactHooks,
@@ -48,6 +49,9 @@ export default [
       "no-await-in-loop": "warn",
       "no-duplicate-imports": "warn",
       "no-self-compare": "warn",
+      "valid-typeof": "error",
+      "consistent-return": "error",
+      "no-empty": "warn",
     },
   },
 ];
