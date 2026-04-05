@@ -11,7 +11,6 @@ function Cabins() {
         console.log(data);
       } catch (error) {
         console.log(error);
-      } finally {
       }
     }
     fetchCabins();
