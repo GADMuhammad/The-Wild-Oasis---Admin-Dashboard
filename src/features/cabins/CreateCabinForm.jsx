@@ -57,16 +57,30 @@ function CreateCabinForm({ setShowForm }) {
     onError: (error) => toast.error(error.message),
   });
 
+  function onError(errors) {
+    console.log(errors);
+  }
+
   return (
-    <Form onSubmit={handleSubmit(mutate)}>
+    <Form onSubmit={handleSubmit(mutate, onError)}>
       <FormRow>
         <Label htmlFor="name">Cabin name</Label>
-        <Input type="text" id="name" defaultValue="00" {...register("name")} />
+        <Input
+          type="text"
+          id="name"
+          defaultValue="00"
+          {...register("name", { required: "Name field is required" })}
+        />
       </FormRow>
 
       <FormRow>
         <Label htmlFor="regularPrice">Regular price</Label>
-        <Input type="number" id="regularPrice" {...register("regularPrice")} />
+        <Input
+          type="number"
+          id="regularPrice"
+          {...register("regularPrice")}
+          placeholder="how much to rent the cabin?"
+        />
       </FormRow>
 
       <FormRow>
@@ -82,7 +96,13 @@ function CreateCabinForm({ setShowForm }) {
 
       <FormRow>
         <Label htmlFor="area">Cabin area</Label>
-        <Input type="number" id="area" min={50} {...register("area")} />
+        <Input
+          type="number"
+          id="area"
+          min={50}
+          {...register("area")}
+          placeholder="cabin area in square meter"
+        />
       </FormRow>
 
       <FormRow>
@@ -93,6 +113,7 @@ function CreateCabinForm({ setShowForm }) {
           type="number"
           id="numberOfRooms"
           {...register("numberOfRooms")}
+          placeholder="the number of the rooms in the cabin"
         />
       </FormRow>
 
@@ -103,14 +124,15 @@ function CreateCabinForm({ setShowForm }) {
           type="number"
           id="maxCapacity"
           {...register("maxCapacity")}
+          placeholder="the maximum capacity of the cabin"
         />
       </FormRow>
 
       <FormRow>
-        <Label htmlFor="regularPrice">Air Conditioning</Label>
+        <Label htmlFor="airConditioning">Air Conditioning</Label>
         <Input
           type="checkbox"
-          id="regularPrice"
+          id="airConditioning"
           {...register("airConditioning")}
         />
       </FormRow>
@@ -118,7 +140,7 @@ function CreateCabinForm({ setShowForm }) {
       <FormRow>
         <Label htmlFor="description">Description for website</Label>
         <Textarea
-          type="number"
+          type="text"
           id="description"
           defaultValue="Cabin"
           {...register("description")}
@@ -132,7 +154,11 @@ function CreateCabinForm({ setShowForm }) {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button variation="secondary" type="reset">
+        <Button
+          onClick={() => setShowForm(false)}
+          variation="secondary"
+          type="reset"
+        >
           Cancel
         </Button>
         <Button disabled={isCreatingCabin}>Add cabin</Button>
