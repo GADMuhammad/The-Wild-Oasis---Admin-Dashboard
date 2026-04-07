@@ -36,13 +36,10 @@ const FormRow = styled.div`
     gap: 1.2rem;
   }
 `;
-const Error = styled.span`
-  font-size: 1.4rem;
-  color: var(--color-red-700);
-`;
 
 function CreateCabinForm({ setShowForm }) {
-  const { register, handleSubmit, reset, getValues } = useForm();
+  const { register, handleSubmit, reset, getValues, formState } = useForm();
+  const { errors } = formState;
 
   const queryClient = useQueryClient();
   const { isPending: isCreatingCabin, mutate } = useMutation({
@@ -64,13 +61,21 @@ function CreateCabinForm({ setShowForm }) {
     <Form onSubmit={handleSubmit(mutate, onError)}>
       {formDetails.map(function ({ label, textarea, ...info }) {
         const InputComponent = textarea ? Textarea : Input;
+        const errorMessage = errors?.[info.id]?.message;
 
-        function discountValidate(discount) {
-          if (info.id !== "discount") return undefined;
-          return (
-            +discount < +getValues().regularPrice ||
-            "Discount should be less than regular price."
-          );
+        function validate(value) {
+          if (info.id === "discount") {
+            return (
+              +value < +getValues().regularPrice ||
+              "Discount should be less than regular price."
+            );
+          }
+          return true;
+        }
+
+        function required() {
+          if (info.type === "checkbox") return undefined;
+          return `${label} field is required.`;
         }
 
         return (
@@ -83,13 +88,14 @@ function CreateCabinForm({ setShowForm }) {
               {...register(info.id, {
                 min: info.min ? { value: info.min } : undefined,
                 max: info.max ? { value: info.max } : undefined,
-                required:
-                  info.type === "checkbox"
-                    ? undefined
-                    : `${label} field is required`,
-                validate: discountValidate, // discount validate to be less than the regular price
+                valueAsNumber: info.type === "number",
+                required: required(),
+                validate, // discount validate to be less than the regular price
               })}
             />
+            {errorMessage && (
+              <span className="text-[1.4rem] text-red-700">{errorMessage}</span>
+            )}
           </FormRow>
         );
       })}
