@@ -50,13 +50,14 @@ function CreateCabinForm({ setShowForm }) {
     onSuccess: function () {
       toast.success("New cabin successfully added.");
       queryClient.invalidateQueries({ queryKey: ["cabins"] });
+      reset();
       setShowForm(false);
     },
     onError: (error) => toast.error(error.message),
   });
 
   function onError(errors) {
-    console.log(errors);
+    toast.error(Object.values(errors)[0].message);
   }
 
   return (
@@ -65,8 +66,9 @@ function CreateCabinForm({ setShowForm }) {
         const InputComponent = textarea ? Textarea : Input;
 
         function discountValidate(discount) {
+          if (info.id !== "discount") return undefined;
           return (
-            discount < getValues().regularPrice ||
+            +discount < +getValues().regularPrice ||
             "Discount should be less than regular price."
           );
         }
@@ -81,8 +83,11 @@ function CreateCabinForm({ setShowForm }) {
               {...register(info.id, {
                 min: info.min ? { value: info.min } : undefined,
                 max: info.max ? { value: info.max } : undefined,
-                required: `${label} field is required`,
-                validate: info.id === "discount" ? discountValidate : undefined,
+                required:
+                  info.type === "checkbox"
+                    ? undefined
+                    : `${label} field is required`,
+                validate: discountValidate, // discount validate to be less than the regular price
               })}
             />
           </FormRow>
