@@ -1,0 +1,55 @@
+const formDetails = [
+  {
+    label: "Cabin name",
+    id: "name",
+    type: "text",
+    defaultValue: "00",
+    autoComplete: "name",
+  },
+  {
+    label: "Regular price",
+    id: "regularPrice",
+    type: "number",
+    placeholder: "how much to rent the cabin?",
+  },
+  {
+    label: "Discount",
+    id: "discount",
+    type: "number",
+    min: 0,
+    defaultValue: 0,
+  },
+  {
+    label: "Cabin area",
+    id: "area",
+    type: "number",
+    min: 50,
+    placeholder: "cabin area in square meter",
+  },
+  {
+    label: "Number of rooms",
+    id: "numberOfRooms",
+    type: "number",
+    min: 1,
+    max: 9,
+    placeholder: "the number of the rooms in the cabin",
+  },
+  {
+    label: "Maximum capacity",
+    id: "maxCapacity",
+    type: "number",
+    max: 10,
+    placeholder: "the maximum capacity of the cabin",
+  },
+  { label: "Air Conditioning", id: "airConditioning", type: "checkbox" },
+  {
+    textarea: true,
+    label: "Description for website",
+    id: "description",
+    type: "text",
+    defaultValue: "Cabin",
+  },
+  // { label: "Cabin photo", id: "image", accept: "image/*" },
+];
+
+export default formDetails;

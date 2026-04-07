@@ -52,6 +52,11 @@ export default [
       "valid-typeof": "error",
       "consistent-return": "error",
       "no-empty": "warn",
+      "prefer-const": "warn",
+      "no-implicit-coercion": "off",
+      "no-unneeded-ternary": "warn",
+      curly: "off",
+      // "react/destructuring-assignment": ["error", "always"],
     },
   },
 ];

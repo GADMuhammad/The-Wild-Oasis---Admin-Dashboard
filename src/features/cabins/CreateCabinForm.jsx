@@ -42,7 +42,7 @@ const Error = styled.span`
 `;
 
 function CreateCabinForm({ setShowForm }) {
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, getValues } = useForm();
 
   const queryClient = useQueryClient();
   const { isPending: isCreatingCabin, mutate } = useMutation({
@@ -61,19 +61,28 @@ function CreateCabinForm({ setShowForm }) {
 
   return (
     <Form onSubmit={handleSubmit(mutate, onError)}>
-      {formDetails.map(function ({ label, textarea, ...information }) {
+      {formDetails.map(function ({ label, textarea, ...info }) {
         const InputComponent = textarea ? Textarea : Input;
+
+        function discountValidate(discount) {
+          return (
+            discount < getValues().regularPrice ||
+            "Discount should be less than regular price."
+          );
+        }
+
         return (
-          <FormRow key={information.id}>
-            <label className="font-medium" htmlFor={information.id}>
+          <FormRow key={info.id}>
+            <label className="font-medium" htmlFor={info.id}>
               {label}
             </label>
             <InputComponent
-              {...information}
-              {...register(information.id, {
-                max: information.max ? { value: information.max } : undefined,
-                min: information.min ? { value: information.min } : undefined,
-                required: `${label | information.id} field is required`,
+              {...info}
+              {...register(info.id, {
+                min: info.min ? { value: info.min } : undefined,
+                max: info.max ? { value: info.max } : undefined,
+                required: `${label} field is required`,
+                validate: info.id === "discount" ? discountValidate : undefined,
               })}
             />
           </FormRow>
