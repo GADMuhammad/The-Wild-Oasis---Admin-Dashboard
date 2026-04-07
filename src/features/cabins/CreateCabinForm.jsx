@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
+import formDetails from "./CabinFormDetails";
 
 const FormRow = styled.div`
   display: grid;
@@ -35,9 +36,6 @@ const FormRow = styled.div`
     gap: 1.2rem;
   }
 `;
-const Label = styled.label`
-  font-weight: 500;
-`;
 const Error = styled.span`
   font-size: 1.4rem;
   color: var(--color-red-700);
@@ -63,101 +61,38 @@ function CreateCabinForm({ setShowForm }) {
 
   return (
     <Form onSubmit={handleSubmit(mutate, onError)}>
-      <FormRow>
-        <Label htmlFor="name">Cabin name</Label>
-        <Input
-          type="text"
-          id="name"
-          defaultValue="00"
-          {...register("name", { required: "Name field is required" })}
-        />
-      </FormRow>
+      {formDetails.map(function ({ label, textarea, ...information }) {
+        const InputComponent = textarea ? Textarea : Input;
+        return (
+          <FormRow key={information.id}>
+            <label className="font-medium" htmlFor={information.id}>
+              {label}
+            </label>
+            <InputComponent
+              {...information}
+              {...register(information.id, {
+                max: information.max ? { value: information.max } : undefined,
+                min: information.min ? { value: information.min } : undefined,
+                required: `${label | information.id} field is required`,
+              })}
+            />
+          </FormRow>
+        );
+      })}
 
       <FormRow>
-        <Label htmlFor="regularPrice">Regular price</Label>
-        <Input
-          type="number"
-          id="regularPrice"
-          {...register("regularPrice")}
-          placeholder="how much to rent the cabin?"
-        />
-      </FormRow>
-
-      <FormRow>
-        <Label htmlFor="discount">Discount</Label>
-        <Input
-          min={0}
-          type="number"
-          id="discount"
-          defaultValue={0}
-          {...register("discount")}
-        />
-      </FormRow>
-
-      <FormRow>
-        <Label htmlFor="area">Cabin area</Label>
-        <Input
-          type="number"
-          id="area"
-          min={50}
-          {...register("area")}
-          placeholder="cabin area in square meter"
-        />
-      </FormRow>
-
-      <FormRow>
-        <Label htmlFor="numberOfRooms">Number of rooms</Label>
-        <Input
-          min={1}
-          max={9}
-          type="number"
-          id="numberOfRooms"
-          {...register("numberOfRooms")}
-          placeholder="the number of the rooms in the cabin"
-        />
-      </FormRow>
-
-      <FormRow>
-        <Label htmlFor="maxCapacity">Maximum capacity</Label>
-        <Input
-          max={10}
-          type="number"
-          id="maxCapacity"
-          {...register("maxCapacity")}
-          placeholder="the maximum capacity of the cabin"
-        />
-      </FormRow>
-
-      <FormRow>
-        <Label htmlFor="airConditioning">Air Conditioning</Label>
-        <Input
-          type="checkbox"
-          id="airConditioning"
-          {...register("airConditioning")}
-        />
-      </FormRow>
-
-      <FormRow>
-        <Label htmlFor="description">Description for website</Label>
-        <Textarea
-          type="text"
-          id="description"
-          defaultValue="Cabin"
-          {...register("description")}
-        />
-      </FormRow>
-
-      <FormRow>
-        <Label htmlFor="image">Cabin photo</Label>
+        <label className="font-medium" htmlFor="image">
+          Cabin photo
+        </label>
         <FileInput id="image" accept="image/*" />
       </FormRow>
 
       <FormRow>
         {/* type is an HTML attribute! */}
         <Button
-          onClick={() => setShowForm(false)}
-          variation="secondary"
           type="reset"
+          variation="secondary"
+          onClick={() => setShowForm(false)}
         >
           Cancel
         </Button>
