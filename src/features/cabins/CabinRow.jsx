@@ -48,7 +48,7 @@ export default function CabinRow({ cabin }) {
     airConditioning,
     area,
     discount,
-    imgURL,
+    image,
     maxCapacity,
     name,
     numberOfRooms,
@@ -67,7 +67,7 @@ export default function CabinRow({ cabin }) {
 
   return (
     <TableRow role="row">
-      <Img src={imgURL} />
+      <Img src={image} />
       <Cabin>{name}</Cabin>
       <p>{`for ${maxCapacity} guests, ${numberOfRooms} rooms${airConditioning ? " with airConditioning." : "."}`}</p>
       <Price>{formatCurrency(regularPrice)}</Price>

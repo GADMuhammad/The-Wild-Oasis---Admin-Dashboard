@@ -53,12 +53,19 @@ function CreateCabinForm({ setShowForm }) {
     onError: (error) => toast.error(error.message),
   });
 
+  // function onSubmit({ image, ...data }) {
+  function onSubmit(data) {
+    // console.log(image.name);
+    console.log(data?.image[0]);
+    mutate({ ...data, image: data.image[0] });
+  }
+
   function onError(errors) {
     toast.error(Object.values(errors)[0].message);
   }
 
   return (
-    <Form onSubmit={handleSubmit(mutate, onError)}>
+    <Form onSubmit={handleSubmit(onSubmit, onError)}>
       {formDetails.map(function ({ label, textarea, ...info }) {
         const InputComponent = textarea ? Textarea : Input;
         const errorMessage = errors?.[info.id]?.message;
@@ -104,7 +111,13 @@ function CreateCabinForm({ setShowForm }) {
         <label className="font-medium" htmlFor="image">
           Cabin photo
         </label>
-        <FileInput id="image" accept="image/*" />
+        <FileInput
+          id="image"
+          accept="image/*"
+          {...register("image", {
+            required: "This field is required",
+          })}
+        />
       </FormRow>
 
       <FormRow>
