@@ -16,7 +16,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
   const { handleSubmit, reset } = methods;
   const queryClient = useQueryClient();
 
-  const { isPending: isLoading, mutate } = useMutation({
+  const { isPending, mutate } = useMutation({
     mutationFn: ({ newCabinData, id }) => createOrEditCabin(newCabinData, id),
     onSuccess: function () {
       toast.success(
@@ -51,7 +51,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           >
             Cancel
           </Button>
-          <Button disabled={isLoading}>
+          <Button disabled={isPending}>
             {isToEditSession ? "Edit" : "Create new"} cabin
           </Button>
         </div>

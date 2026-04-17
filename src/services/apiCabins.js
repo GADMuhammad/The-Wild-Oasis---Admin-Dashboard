@@ -31,11 +31,11 @@ export async function createOrEditCabin(newCabin, id) {
   // A) FOR EDITING CABIN (IN CASE THERE'S AN ID)
   if (id) query = query.update(rowData).eq("id", id);
 
-  const { data: cabins, error } = await query.select();
+  const { data: cabins, error } = await query.select().single();
   if (error) throw new Error("Cabins could NOT be inserted.");
 
   // 2. Upload image
-  // if (hasImagePath) return cabins;
+  if (hasImagePath) return cabins;
 
   const { error: storageError } = await supabase.storage
     .from("cabins-images")
