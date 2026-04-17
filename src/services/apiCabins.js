@@ -61,10 +61,7 @@ export async function deleteCabin(
     .delete()
     .eq("id", id);
 
-  if (error) {
-    console.error(error);
-    throw new Error(errorMessage);
-  }
+  if (error) throw new Error(errorMessage);
 
   return cabins;
 }

@@ -12,22 +12,9 @@ const Table = styled.div`
   overflow: hidden;
 `;
 
-// useEffect(() => {
-//   async function fetchCabins() {
-//     try {
-//       const data = await getCabins();
-//       console.log(data);
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   }
-//   fetchCabins();
-// }, []);
-
 export default function CabinTable() {
   const query = useQuery({ queryKey: ["cabins"], queryFn: getCabins });
   const { isPending, data: cabins, error } = query;
-  // console.log(cabins);
 
   if (isPending) return <Spinner />;
   return (
@@ -42,8 +29,6 @@ export default function CabinTable() {
         <div>price</div>
         <div>discount</div>
         <div>area</div>
-        {/* <div></div> */}
-        {/* <div></div> */}
       </header>
       {cabins.map((cabin) => (
         <CabinRow key={cabin.id} cabin={cabin} />

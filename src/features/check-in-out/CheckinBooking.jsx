@@ -17,7 +17,7 @@ const Box = styled.div`
   padding: 2.4rem 4rem;
 `;
 
-function CheckinBooking() {
+function CheckInBooking() {
   const moveBack = useMoveBack();
 
   const booking = {};
@@ -31,7 +31,7 @@ function CheckinBooking() {
     numNights,
   } = booking;
 
-  function handleCheckin() {}
+  function handleCheckIn() {}
 
   return (
     <>
@@ -43,7 +43,7 @@ function CheckinBooking() {
       <BookingDataBox booking={booking} />
 
       <ButtonGroup>
-        <Button onClick={handleCheckin}>Check in booking #{bookingId}</Button>
+        <Button onClick={handleCheckIn}>Check in booking #{bookingId}</Button>
         <Button variation="secondary" onClick={moveBack}>
           Back
         </Button>
@@ -52,4 +52,4 @@ function CheckinBooking() {
   );
 }
 
-export default CheckinBooking;
+export default CheckInBooking;

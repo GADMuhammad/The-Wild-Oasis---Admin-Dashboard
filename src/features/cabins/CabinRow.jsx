@@ -81,7 +81,6 @@ export default function CabinRow({ cabin }) {
         <Price>{formatCurrency(regularPrice)}</Price>
         <Discount>{formatCurrency(discount)}</Discount>
         <p>{area}m²</p>
-        {/* <div className="col-span-2 flex justify-between gap-2"> */}
         <button
           className={buttonStyle}
           onClick={() => setShowForm((show) => !show)}
@@ -97,7 +96,6 @@ export default function CabinRow({ cabin }) {
         >
           Delete
         </button>
-        {/* </div> */}
       </TableRow>
       {showForm && <CreateCabinForm cabinToEdit={cabin} />}
     </>

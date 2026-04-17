@@ -8,8 +8,8 @@ export default function CabinFormDetails({ isToEditSession }) {
   const { errors } = formState;
 
   return formDetails.map(function ({ label, textarea, ...info }) {
-    const InputComponent = textarea ? Textarea : Input;
-    const errorMessage = errors?.[info.id]?.message;
+    const InputComponent = textarea ? Textarea : Input,
+      errorMessage = errors?.[info.id]?.message;
 
     function validate(value) {
       if (info.id === "discount") {
