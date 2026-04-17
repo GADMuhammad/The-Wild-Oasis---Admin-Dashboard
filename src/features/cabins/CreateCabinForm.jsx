@@ -1,63 +1,48 @@
-import styled from "styled-components";
-import Input from "../../ui/Input";
 import Form from "../../ui/Form";
 import Button from "../../ui/Button";
-import FileInput from "../../ui/FileInput";
-import Textarea from "../../ui/Textarea";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createCabin } from "../../services/apiCabins";
+import { createOrEditCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
-import formDetails from "./CabinFormDetails";
+import CabinFormDetails from "./CabinFormDetails";
 
-const FormRow = styled.div`
-  display: grid;
-  align-items: center;
-  grid-template-columns: 24rem 1fr 1.2fr;
-  gap: 2.4rem;
+function CreateCabinForm({ cabinToEdit = {} }) {
+  const { id: editID, ...valuesToEdit } = cabinToEdit;
+  const isToEditSession = !!editID;
 
-  padding: 1.2rem 0;
+  const methods = useForm({
+    defaultValues: isToEditSession ? valuesToEdit : {},
+  });
 
-  &:first-child {
-    padding-top: 0;
-  }
-
-  &:last-child {
-    padding-bottom: 0;
-  }
-
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
-
-  &:has(button) {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1.2rem;
-  }
-`;
-
-function CreateCabinForm({ setShowForm }) {
-  const { register, handleSubmit, reset, getValues, formState } = useForm();
-  const { errors } = formState;
+  const { handleSubmit, reset } = methods;
 
   const queryClient = useQueryClient();
-  const { isPending: isCreatingCabin, mutate } = useMutation({
-    mutationFn: createCabin,
+
+  const { isPending: isCreatingCabin, mutate: createCabin } = useMutation({
+    mutationFn: createOrEditCabin,
     onSuccess: function () {
       toast.success("New cabin successfully added.");
       queryClient.invalidateQueries({ queryKey: ["cabins"] });
       reset();
-      setShowForm(false);
     },
     onError: (error) => toast.error(error.message),
   });
 
-  // function onSubmit({ image, ...data }) {
+  const { isPending: isEditingCabin, mutate: editCabin } = useMutation({
+    mutationFn: ({ newCabinData, id }) => createOrEditCabin(newCabinData, id),
+    onSuccess: function () {
+      toast.success("New cabin successfully edited.");
+      queryClient.invalidateQueries({ queryKey: ["cabins"] });
+      reset();
+    },
+    onError: (error) => toast.error(error.message),
+  });
+
   function onSubmit(data) {
-    // console.log(image.name);
-    console.log(data?.image[0]);
-    mutate({ ...data, image: data.image[0] });
+    const image = typeof data.image === "string" ? data.image : data.image[0];
+    cabinToEdit
+      ? editCabin({ newCabinData: { ...data, image }, id: editID })
+      : createCabin({ ...data, image });
   }
 
   function onError(errors) {
@@ -65,73 +50,25 @@ function CreateCabinForm({ setShowForm }) {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit, onError)}>
-      {formDetails.map(function ({ label, textarea, ...info }) {
-        const InputComponent = textarea ? Textarea : Input;
-        const errorMessage = errors?.[info.id]?.message;
+    <FormProvider {...methods}>
+      <Form onSubmit={handleSubmit(onSubmit, onError)}>
+        <CabinFormDetails isToEditSession={isToEditSession} />
 
-        function validate(value) {
-          if (info.id === "discount") {
-            return (
-              +value < +getValues().regularPrice ||
-              "Discount should be less than regular price."
-            );
-          }
-          return true;
-        }
-
-        function required() {
-          if (info.type === "checkbox") return undefined;
-          return `${label} field is required.`;
-        }
-
-        return (
-          <FormRow key={info.id}>
-            <label className="font-medium" htmlFor={info.id}>
-              {label}
-            </label>
-            <InputComponent
-              {...info}
-              {...register(info.id, {
-                min: info.min ? { value: info.min } : undefined,
-                max: info.max ? { value: info.max } : undefined,
-                valueAsNumber: info.type === "number",
-                required: required(),
-                validate, // discount validate to be less than the regular price
-              })}
-            />
-            {errorMessage && (
-              <span className="text-[1.4rem] text-red-700">{errorMessage}</span>
-            )}
-          </FormRow>
-        );
-      })}
-
-      <FormRow>
-        <label className="font-medium" htmlFor="image">
-          Cabin photo
-        </label>
-        <FileInput
-          id="image"
-          accept="image/*"
-          {...register("image", {
-            required: "This field is required",
-          })}
-        />
-      </FormRow>
-
-      <FormRow>
-        {/* type is an HTML attribute! */}
-        <Button
-          type="reset"
-          variation="secondary"
-          onClick={() => setShowForm(false)}
-        >
-          Cancel
-        </Button>
-        <Button disabled={isCreatingCabin}>Add cabin</Button>
-      </FormRow>
-    </Form>
+        <div className="grid grid-cols-[24rem_1fr_1.2fr] items-center gap-[2.4rem] border-b border-gray-100 px-0 py-[1.2rem] first:pt-0 last:border-b-0 last:pb-0 has-[button]:flex has-[button]:justify-end has-[button]:gap-[1.2rem]">
+          {/* type is an HTML attribute! */}
+          <Button
+            type="reset"
+            variation="secondary"
+            // onClick={() => setShowForm(false)}
+          >
+            Cancel
+          </Button>
+          <Button disabled={isCreatingCabin || isEditingCabin}>
+            {isToEditSession ? "Edit" : "Create new"} cabin
+          </Button>
+        </div>
+      </Form>
+    </FormProvider>
   );
 }
 

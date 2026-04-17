@@ -3,10 +3,12 @@ import { formatCurrency } from "../../utils/helpers";
 import { deleteCabin as deleteCabinFn } from "../../services/apiCabins";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
+import { useState } from "react";
+import CreateCabinForm from "./CreateCabinForm";
 
 const TableRow = styled.div`
   display: grid;
-  grid-template-columns: 0.6fr 1fr 1.4fr 0.6fr 0.6fr 0.6fr 0.6fr;
+  grid-template-columns: 0.6fr 0.8fr 1.6fr 0.6fr 0.6fr 0.6fr 0.6fr 0.6fr;
 
   column-gap: 2.4rem;
   align-items: center;
@@ -42,7 +44,12 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 
+const buttonStyle =
+  "w-fit rounded bg-gray-200 px-10 py-4 text-gray-950 disabled:bg-transparent";
+
 export default function CabinRow({ cabin }) {
+  const [showForm, setShowForm] = useState(false);
+
   const {
     id: cabinID,
     airConditioning,
@@ -66,22 +73,33 @@ export default function CabinRow({ cabin }) {
   });
 
   return (
-    <TableRow role="row">
-      <Img src={imgURL} />
-      <Cabin>{name}</Cabin>
-      <p>{`for ${maxCapacity} guests, ${numberOfRooms} rooms${airConditioning ? " with airConditioning." : "."}`}</p>
-      <Price>{formatCurrency(regularPrice)}</Price>
-      <Discount>{formatCurrency(discount)}</Discount>
-      <p>{area}m²</p>
-      <button
-        type="button"
-        role="button"
-        disabled={isDeleting}
-        onClick={() => mutate(cabinID)}
-        className="w-fit rounded bg-gray-200 px-10 py-4 text-gray-950 disabled:bg-transparent"
-      >
-        Delete
-      </button>
-    </TableRow>
+    <>
+      <TableRow role="row">
+        <Img src={imgURL} />
+        <Cabin>{name}</Cabin>
+        <p>{`for ${maxCapacity} guests, ${numberOfRooms} rooms${airConditioning ? " with airConditioning." : "."}`}</p>
+        <Price>{formatCurrency(regularPrice)}</Price>
+        <Discount>{formatCurrency(discount)}</Discount>
+        <p>{area}m²</p>
+        {/* <div className="col-span-2 flex justify-between gap-2"> */}
+        <button
+          className={buttonStyle}
+          onClick={() => setShowForm((show) => !show)}
+        >
+          Edit
+        </button>
+        <button
+          type="button"
+          role="button"
+          disabled={isDeleting}
+          onClick={() => mutate(cabinID)}
+          className={buttonStyle}
+        >
+          Delete
+        </button>
+        {/* </div> */}
+      </TableRow>
+      {showForm && <CreateCabinForm cabinToEdit={cabin} />}
+    </>
   );
 }

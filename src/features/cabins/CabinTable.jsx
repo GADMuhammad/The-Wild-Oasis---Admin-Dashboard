@@ -42,7 +42,8 @@ export default function CabinTable() {
         <div>price</div>
         <div>discount</div>
         <div>area</div>
-        <div>action</div>
+        {/* <div></div> */}
+        {/* <div></div> */}
       </header>
       {cabins.map((cabin) => (
         <CabinRow key={cabin.id} cabin={cabin} />

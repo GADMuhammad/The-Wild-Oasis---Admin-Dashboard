@@ -51,7 +51,14 @@ const formDetails = [
     type: "text",
     defaultValue: "Cabin",
   },
-  // { label: "Cabin photo", id: "image", accept: "image/*" },
+  {
+    label: "Cabin photo",
+    type: "file",
+    id: "image",
+    accept: "image/*",
+    className:
+      "text-[1.4rem] rounded-sm file:font-inherit file:font-medium file:px-[1.2rem] file:py-[0.8rem] file:mr-[1.2rem] file:rounded-sm file:border-none file:text-brand-50 file:bg-brand-600 file:cursor-pointer file:transition-colors file:duration-200 hover:file:bg-brand-700",
+  },
 ];
 
 export default formDetails;
