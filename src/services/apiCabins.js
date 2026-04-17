@@ -17,6 +17,7 @@ export async function createOrEditCabin(newCabin, id) {
     "/",
     "",
   );
+
   const imagePath = hasImagePath
     ? newCabin.image
     : `${supabaseUrl}/storage/v1/object/public/cabins-images/${imageName}`;
@@ -27,7 +28,7 @@ export async function createOrEditCabin(newCabin, id) {
   // A) FOR CREATING CABIN (IN CASE THERE'S NO ID)
   if (!id) query = query.insert([rowData]); // insert is mutable
 
-  // A) FOR EDITING CABIN (IN CASE THERE'S NO ID)
+  // A) FOR EDITING CABIN (IN CASE THERE'S AN ID)
   if (id) query = query.update(rowData).eq("id", id);
 
   const { data: cabins, error } = await query.select();

@@ -13,25 +13,15 @@ function CreateCabinForm({ cabinToEdit = {} }) {
   const methods = useForm({
     defaultValues: isToEditSession ? valuesToEdit : {},
   });
-
   const { handleSubmit, reset } = methods;
-
   const queryClient = useQueryClient();
 
-  const { isPending: isCreatingCabin, mutate: createCabin } = useMutation({
-    mutationFn: createOrEditCabin,
-    onSuccess: function () {
-      toast.success("New cabin successfully added.");
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-      reset();
-    },
-    onError: (error) => toast.error(error.message),
-  });
-
-  const { isPending: isEditingCabin, mutate: editCabin } = useMutation({
+  const { isPending: isLoading, mutate } = useMutation({
     mutationFn: ({ newCabinData, id }) => createOrEditCabin(newCabinData, id),
     onSuccess: function () {
-      toast.success("New cabin successfully edited.");
+      toast.success(
+        `New cabin successfully ${isToEditSession ? "edited" : "added"}.`,
+      );
       queryClient.invalidateQueries({ queryKey: ["cabins"] });
       reset();
     },
@@ -40,9 +30,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 
   function onSubmit(data) {
     const image = typeof data.image === "string" ? data.image : data.image[0];
-    cabinToEdit
-      ? editCabin({ newCabinData: { ...data, image }, id: editID })
-      : createCabin({ ...data, image });
+    mutate({ newCabinData: { ...data, image }, id: editID });
   }
 
   function onError(errors) {
@@ -63,7 +51,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
           >
             Cancel
           </Button>
-          <Button disabled={isCreatingCabin || isEditingCabin}>
+          <Button disabled={isLoading}>
             {isToEditSession ? "Edit" : "Create new"} cabin
           </Button>
         </div>
