@@ -4,11 +4,11 @@ import { FormProvider } from "react-hook-form";
 import CabinFormDetails from "./CabinFormDetails";
 import useCreateCabin from "./useCreateCabin";
 
-function CreateCabinForm({ cabinToEdit = {} }) {
+function CreateCabinForm({ cabinToEdit }) {
   const {
     methods,
     handleSubmit,
-    onSubmit,
+    createCabinFn,
     onError,
     isPending,
     isToEditSession,
@@ -16,7 +16,7 @@ function CreateCabinForm({ cabinToEdit = {} }) {
 
   return (
     <FormProvider {...methods}>
-      <Form onSubmit={handleSubmit(onSubmit, onError)}>
+      <Form onSubmit={handleSubmit(createCabinFn, onError)}>
         <CabinFormDetails isToEditSession={isToEditSession} />
 
         <div className="grid grid-cols-[24rem_1fr_1.2fr] items-center gap-[2.4rem] border-b border-gray-100 px-0 py-[1.2rem] first:pt-0 last:border-b-0 last:pb-0 has-[button]:flex has-[button]:justify-end has-[button]:gap-[1.2rem]">

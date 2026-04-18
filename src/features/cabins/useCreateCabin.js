@@ -3,9 +3,9 @@ import { createOrEditCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 
-export default function useCreateCabin(cabinToEdit) {
-  const { id: editID, ...valuesToEdit } = cabinToEdit;
-  const isToEditSession = !!editID;
+export default function useCreateCabin(cabinToEdit = {}) {
+  const { id: editID, ...valuesToEdit } = cabinToEdit,
+    isToEditSession = !!editID;
 
   const methods = useForm({
     defaultValues: isToEditSession ? valuesToEdit : {},
@@ -26,7 +26,8 @@ export default function useCreateCabin(cabinToEdit) {
     onError: (error) => toast.error(error.message),
   });
 
-  function onSubmit(data) {
+  function createCabinFn(data) {
+    console.log(data);
     const image = typeof data.image === "string" ? data.image : data.image[0];
     mutate({ newCabinData: { ...data, image }, id: editID });
   }
@@ -38,7 +39,7 @@ export default function useCreateCabin(cabinToEdit) {
   return {
     methods,
     handleSubmit,
-    onSubmit,
+    createCabinFn,
     onError,
     isPending,
     isToEditSession,

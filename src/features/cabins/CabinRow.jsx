@@ -3,10 +3,12 @@ import { formatCurrency } from "../../utils/helpers";
 import { useState } from "react";
 import CreateCabinForm from "./CreateCabinForm";
 import useDeleteCabin from "./useDeleteCabin";
+import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
+import useCreateCabin from "./useCreateCabin";
 
 const TableRow = styled.div`
   display: grid;
-  grid-template-columns: 0.6fr 0.8fr 1.6fr 0.6fr 0.6fr 0.6fr 0.6fr 0.6fr;
+  grid-template-columns: 0.6fr 0.8fr 1.6fr 0.6fr 0.6fr 0.6fr 0.6fr 0.6fr 0.6fr;
 
   column-gap: 2.4rem;
   align-items: center;
@@ -47,8 +49,6 @@ const buttonStyle =
   "w-fit rounded bg-gray-200 px-10 py-4 text-gray-950 disabled:bg-transparent";
 
 export default function CabinRow({ cabin }) {
-  const [showForm, setShowForm] = useState(false);
-
   const {
     id: cabinID,
     airConditioning,
@@ -61,7 +61,25 @@ export default function CabinRow({ cabin }) {
     regularPrice,
   } = cabin;
 
+  const [showForm, setShowForm] = useState(false);
   const { isDeleting, deleteCabin } = useDeleteCabin();
+  const {
+    isPending,
+    createCabinFn,
+    methods,
+    handleSubmit,
+    onError,
+    isToEditSession,
+  } = useCreateCabin();
+
+  function handleDuplicate() {
+    const { id, ...cabinInfo } = cabin;
+    // handleSubmit(
+    //   () => createCabinFn({ ...cabinInfo, name: `copy of ${name}` }),
+    //   onError,
+    // );
+    createCabinFn({ ...cabinInfo, name: `copy of ${name}` });
+  }
 
   return (
     <>
@@ -76,11 +94,14 @@ export default function CabinRow({ cabin }) {
         ) : (
           <span>&mdash;</span>
         )}
+        <button className={buttonStyle} onClick={handleDuplicate}>
+          <HiSquare2Stack />
+        </button>
         <button
           className={buttonStyle}
           onClick={() => setShowForm((show) => !show)}
         >
-          Edit
+          <HiPencil />
         </button>
         <button
           type="button"
@@ -89,7 +110,7 @@ export default function CabinRow({ cabin }) {
           onClick={() => deleteCabin(cabinID)}
           className={buttonStyle}
         >
-          Delete
+          <HiTrash />
         </button>
       </TableRow>
       {showForm && <CreateCabinForm cabinToEdit={cabin} />}
