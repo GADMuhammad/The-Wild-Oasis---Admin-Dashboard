@@ -12,7 +12,10 @@ export async function getCabins() {
 }
 
 export async function createOrEditCabin(newCabin, id) {
-  const hasImagePath = newCabin.image?.startsWith?.(supabaseUrl);
+  const hasImagePath =
+    typeof newCabin.image === "string" &&
+    newCabin.image?.startsWith?.(supabaseUrl);
+
   const imageName = `${Math.random()}-${newCabin.image?.name}`.replaceAll(
     "/",
     "",
@@ -43,10 +46,7 @@ export async function createOrEditCabin(newCabin, id) {
 
   // 3. delete the cabin if there was an error uploading image
   if (storageError) {
-    deleteCabin(
-      newCabin.id,
-      "Cabin image could NOT be uploaded and the cabin was not created.",
-    );
+    deleteCabin(newCabin.id, "Cabin image could NOT be uploaded.");
   }
 
   return cabins;
