@@ -10,7 +10,7 @@ function CreateCabinForm({ cabinToEdit }) {
     handleSubmit,
     createCabinFn,
     onError,
-    isPending,
+    isCreating,
     isToEditSession,
   } = useCreateCabin(cabinToEdit);
 
@@ -28,7 +28,7 @@ function CreateCabinForm({ cabinToEdit }) {
           >
             Cancel
           </Button>
-          <Button disabled={isPending}>
+          <Button disabled={isCreating}>
             {isToEditSession ? "Edit" : "Create new"} cabin
           </Button>
         </div>

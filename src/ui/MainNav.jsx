@@ -1,10 +1,12 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import {
+  HiOutlineCalendarDays,
+  HiOutlineCog6Tooth,
   HiOutlineHome,
+  HiOutlineHomeModern,
   HiOutlineUsers,
   HiOutlineArchiveBox,
-  HiOutlineCalendarDays,
 } from "react-icons/hi2";
 
 const StyledNavLink = styled(NavLink)`
@@ -61,7 +63,7 @@ const links = [
   { label: "Bookings", link: "/bookings", icon: <HiOutlineCalendarDays /> },
   { label: "Cabins", link: "/cabins", icon: <HiOutlineArchiveBox /> },
   { label: "Users", link: "/users", icon: <HiOutlineUsers /> },
-  // { label: "", link: "", icon:<HiOutlineHome /> },
+  { label: "Settings", link: "/settings", icon: <HiOutlineCog6Tooth /> },
 ];
 
 export default function MainNav() {

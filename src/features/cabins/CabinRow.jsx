@@ -49,8 +49,8 @@ const buttonStyle =
   "w-fit rounded bg-gray-200 px-10 py-4 text-gray-950 disabled:bg-transparent";
 
 export default function CabinRow({ cabin }) {
+  const { id: cabinID, ...cabinInfo } = cabin;
   const {
-    id: cabinID,
     airConditioning,
     area,
     discount,
@@ -59,26 +59,14 @@ export default function CabinRow({ cabin }) {
     name,
     numberOfRooms,
     regularPrice,
-  } = cabin;
+  } = cabinInfo;
 
   const [showForm, setShowForm] = useState(false);
   const { isDeleting, deleteCabin } = useDeleteCabin();
-  const {
-    isPending,
-    createCabinFn,
-    methods,
-    handleSubmit,
-    onError,
-    isToEditSession,
-  } = useCreateCabin();
+  const { createCabinFn, isCreating } = useCreateCabin(cabinInfo);
 
   function handleDuplicate() {
-    const { id, ...cabinInfo } = cabin;
-    // handleSubmit(
-    //   () => createCabinFn({ ...cabinInfo, name: `copy of ${name}` }),
-    //   onError,
-    // );
-    createCabinFn({ ...cabinInfo, name: `copy of ${name}` });
+    createCabinFn({ ...cabinInfo, name: `${name}(copy)` });
   }
 
   return (
@@ -94,15 +82,22 @@ export default function CabinRow({ cabin }) {
         ) : (
           <span>&mdash;</span>
         )}
-        <button className={buttonStyle} onClick={handleDuplicate}>
+
+        <button
+          disabled={isCreating}
+          className={buttonStyle}
+          onClick={handleDuplicate}
+        >
           <HiSquare2Stack />
         </button>
+
         <button
           className={buttonStyle}
           onClick={() => setShowForm((show) => !show)}
         >
           <HiPencil />
         </button>
+
         <button
           type="button"
           role="button"

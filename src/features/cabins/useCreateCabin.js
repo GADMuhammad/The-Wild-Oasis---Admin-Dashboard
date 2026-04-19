@@ -14,7 +14,7 @@ export default function useCreateCabin(cabinToEdit = {}) {
 
   const queryClient = useQueryClient();
 
-  const { isPending, mutate } = useMutation({
+  const { isCreating, mutate } = useMutation({
     mutationFn: ({ newCabinData, id }) => createOrEditCabin(newCabinData, id),
     onSuccess: function () {
       toast.success(
@@ -27,7 +27,6 @@ export default function useCreateCabin(cabinToEdit = {}) {
   });
 
   function createCabinFn(data) {
-    console.log(data);
     const image = typeof data.image === "string" ? data.image : data.image[0];
     mutate({ newCabinData: { ...data, image }, id: editID });
   }
@@ -41,7 +40,7 @@ export default function useCreateCabin(cabinToEdit = {}) {
     handleSubmit,
     createCabinFn,
     onError,
-    isPending,
+    isCreating,
     isToEditSession,
   };
 }
