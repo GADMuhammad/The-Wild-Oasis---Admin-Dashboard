@@ -1,3 +1,6 @@
+import { useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
+import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
 
 const StyledModal = styled.div`
@@ -5,8 +8,8 @@ const StyledModal = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: var(--color-grey-0);
-  border-radius: var(--border-radius-lg);
+  background-color: #fff;
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-lg);
   padding: 3.2rem 4rem;
   transition: all 0.5s;
@@ -18,7 +21,7 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: var(--backdrop-color);
+  background-color: var(--color-backdrop);
   backdrop-filter: blur(4px);
   z-index: 1000;
   transition: all 0.5s;
@@ -48,3 +51,28 @@ const Button = styled.button`
     color: var(--color-grey-500);
   }
 `;
+
+export default function Modal({ onCloseModal, children }) {
+  useEffect(() => {
+    const escapeButtonToExit = () => event.key === "Escape" && onCloseModal();
+    document.addEventListener("keydown", escapeButtonToExit);
+    return () => document.removeEventListener("keydown", escapeButtonToExit);
+  }, [onCloseModal]);
+
+  const overlayRef = useRef();
+  function handleOverlayClick(event) {
+    if (event.target === overlayRef.current) onCloseModal();
+  }
+
+  return createPortal(
+    <Overlay ref={overlayRef} onClick={handleOverlayClick}>
+      <StyledModal>
+        <Button onClick={onCloseModal}>
+          <HiXMark />
+        </Button>
+        {children}
+      </StyledModal>
+    </Overlay>,
+    document.querySelector("body"),
+  );
+}

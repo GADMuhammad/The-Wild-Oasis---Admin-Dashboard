@@ -3,7 +3,7 @@ import { createOrEditCabin } from "../../services/apiCabins";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 
-export default function useCreateCabin(cabinToEdit = {}) {
+export default function useCreateCabin(cabinToEdit = {}, onCloseModal) {
   const { id: editID, ...valuesToEdit } = cabinToEdit,
     isToEditSession = !!editID;
 
@@ -14,13 +14,14 @@ export default function useCreateCabin(cabinToEdit = {}) {
 
   const queryClient = useQueryClient();
 
-  const { isCreating, mutate } = useMutation({
+  const { isPending: isCreating, mutate } = useMutation({
     mutationFn: ({ newCabinData, id }) => createOrEditCabin(newCabinData, id),
     onSuccess: function () {
       toast.success(
         `New cabin successfully ${isToEditSession ? "edited" : "added"}.`,
       );
       queryClient.invalidateQueries({ queryKey: ["cabins"] });
+      onCloseModal?.();
       reset();
     },
     onError: (error) => toast.error(error.message),
