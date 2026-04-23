@@ -61,9 +61,9 @@ export default function CabinRow({ cabin }) {
     regularPrice,
   } = cabinInfo;
 
-  const [showForm, setShowForm] = useState(false);
-  const { isDeleting, deleteCabin } = useDeleteCabin();
-  const { createCabinFn, isCreating } = useCreateCabin(cabinInfo);
+  const [showForm, setShowForm] = useState(false),
+    { isDeleting, deleteCabin } = useDeleteCabin(),
+    { createCabinFn, isCreating } = useCreateCabin(cabinInfo);
 
   function handleDuplicate() {
     createCabinFn({ ...cabinInfo, name: `${name}(copy)` });

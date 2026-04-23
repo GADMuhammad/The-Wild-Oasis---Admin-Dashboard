@@ -4,15 +4,11 @@ import { FormProvider } from "react-hook-form";
 import CabinFormDetails from "./CabinFormDetails";
 import useCreateCabin from "./useCreateCabin";
 
-function CreateCabinForm({ cabinToEdit, onCloseModal }) {
-  const {
-    methods,
-    handleSubmit,
-    createCabinFn,
-    onError,
-    isCreating,
-    isToEditSession,
-  } = useCreateCabin(cabinToEdit, onCloseModal);
+function CreateCabinForm({ cabin, onCloseModal }) {
+  const { methods, handleSubmit, createCabinFn, onError, isCreating } =
+    useCreateCabin(cabin, onCloseModal);
+
+  const isToEditSession = !!cabin?.id;
 
   return (
     <FormProvider {...methods}>
