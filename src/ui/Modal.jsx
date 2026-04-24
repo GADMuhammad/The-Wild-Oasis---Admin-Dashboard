@@ -3,17 +3,6 @@ import { createPortal } from "react-dom";
 import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
 
-const StyledModal = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-lg);
-  padding: 3.2rem 4rem;
-  transition: all 0.5s;
-`;
 const Overlay = styled.div`
   position: fixed;
   top: 0;
@@ -21,7 +10,7 @@ const Overlay = styled.div`
   width: 100%;
   height: 100vh;
   background-color: var(--color-backdrop);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(6px);
   z-index: 1000;
   transition: all 0.5s;
   user-select: none;
@@ -58,18 +47,18 @@ export default function Modal({ onCloseModal, children }) {
     return () => document.removeEventListener("keydown", escapeButtonToExit);
   }, [onCloseModal]);
 
-  function handleOverlayClick(event) {
-    if (event.target === event.currentTarget) onCloseModal();
+  function handleOverlayClick({ target, currentTarget }) {
+    target === currentTarget && onCloseModal();
   }
 
   return createPortal(
     <Overlay onClick={handleOverlayClick}>
-      <StyledModal>
+      <div className="fixed top-1/2 left-1/2 -translate-1/2 rounded-lg bg-white px-16 py-[3.2rem] shadow-2xl transition-all duration-500 ease-in-out">
         <Button onClick={onCloseModal}>
           <HiXMark />
         </Button>
         {children}
-      </StyledModal>
+      </div>
     </Overlay>,
     document.querySelector("body"),
   );
