@@ -1,4 +1,10 @@
-import { useEffect } from "react";
+import {
+  cloneElement,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
@@ -40,21 +46,49 @@ const Button = styled.button`
   }
 `;
 
-export default function Modal({ onCloseModal, children }) {
+const ModalContext = createContext(undefined);
+function useModalContext() {
+  const context = useContext(ModalContext);
+  if (!context) throw new Error("No context!!");
+  return context;
+}
+
+export default function Modal({ children }) {
+  const [openName, setOpenName] = useState("");
+
+  const close = () => setOpenName("");
+  const open = setOpenName;
+
+  return (
+    <ModalContext.Provider value={{ openName, close, open }}>
+      {children}
+    </ModalContext.Provider>
+  );
+}
+
+Modal.Open = function ModalOpen({ children, opensWindowName }) {
+  const { open } = useModalContext();
+  return cloneElement(children, { onClick: () => open(opensWindowName) });
+};
+
+Modal.Window = function ModalWindow({ children, name }) {
+  const { openName, close } = useModalContext();
+
   useEffect(() => {
-    const escapeButtonToExit = ({ key }) => key === "Escape" && onCloseModal();
+    const escapeButtonToExit = ({ key }) => key === "Escape" && close();
     document.addEventListener("keydown", escapeButtonToExit);
     return () => document.removeEventListener("keydown", escapeButtonToExit);
-  }, [onCloseModal]);
+  }, [close]);
+  if (name !== openName) return null;
 
   function handleOverlayClick({ target, currentTarget }) {
-    target === currentTarget && onCloseModal();
+    target === currentTarget && close();
   }
 
   return createPortal(
     <Overlay onClick={handleOverlayClick}>
       <div className="fixed top-1/2 left-1/2 -translate-1/2 rounded-lg bg-white px-16 py-[3.2rem] shadow-2xl transition-all duration-500 ease-in-out">
-        <Button onClick={onCloseModal}>
+        <Button onClick={close}>
           <HiXMark />
         </Button>
         {children}
@@ -62,4 +96,4 @@ export default function Modal({ onCloseModal, children }) {
     </Overlay>,
     document.querySelector("body"),
   );
-}
+};
