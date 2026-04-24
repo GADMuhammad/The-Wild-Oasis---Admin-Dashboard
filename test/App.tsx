@@ -10,7 +10,12 @@ export default function App() {
           content: "This is the first post on our new blog",
           user: { id: 1, name: "Gad" },
         }}
-      />
+      >
+        <PostCard.Title />
+        <PostCard.Content />
+        <PostCard.UserName />
+        <PostCard.Buttons />
+      </PostCard>
     </div>
   );
 }
