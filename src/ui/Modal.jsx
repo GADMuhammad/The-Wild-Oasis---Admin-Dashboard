@@ -21,7 +21,7 @@ const Overlay = styled.div`
   transition: all 0.5s;
   user-select: none;
 `;
-const Button = styled.button`
+const StyledCloseButton = styled.button`
   background: none;
   border: none;
   padding: 0.4rem;
@@ -56,19 +56,20 @@ function useModalContext() {
 export default function Modal({ children }) {
   const [openName, setOpenName] = useState("");
 
-  const close = () => setOpenName("");
-  const open = setOpenName;
-
   return (
-    <ModalContext.Provider value={{ openName, close, open }}>
+    <ModalContext.Provider
+      value={{ openName, close: () => setOpenName(""), setOpenName }}
+    >
       {children}
     </ModalContext.Provider>
   );
 }
 
 Modal.Open = function ModalOpen({ children, opensWindowName }) {
-  const { open } = useModalContext();
-  return cloneElement(children, { onClick: () => open(opensWindowName) });
+  const { setOpenName } = useModalContext();
+  return cloneElement(children, {
+    onClick: () => setOpenName(opensWindowName),
+  });
 };
 
 Modal.Window = function ModalWindow({ children, name }) {
@@ -87,11 +88,11 @@ Modal.Window = function ModalWindow({ children, name }) {
 
   return createPortal(
     <Overlay onClick={handleOverlayClick}>
-      <div className="fixed top-1/2 left-1/2 -translate-1/2 rounded-lg bg-white px-16 py-[3.2rem] shadow-2xl transition-all duration-500 ease-in-out">
-        <Button onClick={close}>
+      <div className="fixed top-1/2 left-1/2 -translate-1/2 rounded-lg bg-white px-12 py-[1.8rem] shadow-2xl transition-all duration-500 ease-in-out">
+        <StyledCloseButton onClick={close}>
           <HiXMark />
-        </Button>
-        {children}
+        </StyledCloseButton>
+        {cloneElement(children, { onCloseModal: close })}
       </div>
     </Overlay>,
     document.querySelector("body"),
