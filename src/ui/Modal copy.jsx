@@ -1,8 +1,13 @@
-import { cloneElement, createContext, useContext, useEffect, useState } from "react";
+import {
+  cloneElement,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { createPortal } from "react-dom";
 import { HiXMark } from "react-icons/hi2";
 import styled from "styled-components";
-import { useOutsideClick } from "../hooks/useOutsideClick";
 
 const Overlay = styled.div`
   position: fixed;
@@ -10,13 +15,13 @@ const Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100vh;
-  background-color: var(--backdrop-color);
-  backdrop-filter: blur(4px);
+  background-color: var(--color-backdrop);
+  backdrop-filter: blur(6px);
   z-index: 1000;
   transition: all 0.5s;
+  user-select: none;
 `;
-
-const Button = styled.button`
+const StyledCloseButton = styled.button`
   background: none;
   border: none;
   padding: 0.4rem;
@@ -41,25 +46,34 @@ const Button = styled.button`
   }
 `;
 
-const ModalContext = createContext();
+const ModalContext = createContext(undefined);
+function useModalContext() {
+  const context = useContext(ModalContext);
+  if (!context) throw new Error("No context!!");
+  return context;
+}
 
-function Modal({ children }) {
+export default function Modal({ children }) {
   const [openName, setOpenName] = useState("");
 
-  const close = () => setOpenName("");
-  const open = setOpenName;
-
-  return <ModalContext.Provider value={{ openName, close, open }}>{children}</ModalContext.Provider>;
+  return (
+    <ModalContext.Provider
+      value={{ openName, close: () => setOpenName(""), setOpenName }}
+    >
+      {children}
+    </ModalContext.Provider>
+  );
 }
 
-function Open({ children, opens: opensWindowName }) {
-  const { open } = useContext(ModalContext);
+Modal.Open = function ModalOpen({ children, opensWindowName }) {
+  const { setOpenName } = useModalContext();
+  return cloneElement(children, {
+    onClick: () => setOpenName(opensWindowName),
+  });
+};
 
-  return cloneElement(children, { onClick: () => open(opensWindowName) });
-}
-
-function Window({ children, name }) {
-  const { openName, close } = useContext(ModalContext);
+Modal.Window = function ModalWindow({ children, name }) {
+  const { openName, close } = useModalContext();
 
   useEffect(() => {
     const escapeButtonToExit = ({ key }) => key === "Escape" && close();
@@ -72,23 +86,15 @@ function Window({ children, name }) {
     target === currentTarget && close();
   }
 
-  if (name !== openName) return null;
-
   return createPortal(
     <Overlay onClick={handleOverlayClick}>
       <div className="fixed top-1/2 left-1/2 -translate-1/2 rounded-lg bg-white px-12 py-[1.8rem] shadow-2xl transition-all duration-500 ease-in-out">
-        <Button onClick={close}>
+        <StyledCloseButton onClick={close}>
           <HiXMark />
-        </Button>
-
-        <div>{cloneElement(children, { onCloseModal: close })}</div>
+        </StyledCloseButton>
+        {cloneElement(children, { onCloseModal: close })}
       </div>
     </Overlay>,
-    document.body,
+    document.querySelector("body"),
   );
-}
-
-Modal.Open = Open;
-Modal.Window = Window;
-
-export default Modal;
+};
