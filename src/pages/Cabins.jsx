@@ -6,10 +6,10 @@ import AddCabin from "../features/cabins/AddCabin";
 function Cabins() {
   return (
     <>
-      <Row type="horizontal">
-        {/* <Heading as="h1">All cabins</Heading> */}
-        {/* <p>FILTER / SORT</p> */}
-      </Row>
+      {/* <Row type="horizontal"> */}
+      {/* <Heading as="h1">All cabins</Heading> */}
+      {/* <p>FILTER / SORT</p> */}
+      {/* </Row> */}
 
       <Row>
         <CabinTable />

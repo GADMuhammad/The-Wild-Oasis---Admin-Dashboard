@@ -10,7 +10,7 @@ function AppLayout() {
 
       <Sidebar />
 
-      <main className="overflow-y-scroll bg-gray-50 px-[4.8rem] pt-16 pb-[6.4rem]">
+      <main className="overflow-y-scroll bg-gray-50 px-[4.8rem] pt-8">
         <div className="mx-auto my-0 flex flex-col gap-[3.2rem]">
           <Outlet />
         </div>

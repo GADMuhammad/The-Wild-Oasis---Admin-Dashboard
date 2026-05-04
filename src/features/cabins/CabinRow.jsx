@@ -6,11 +6,12 @@ import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
 import useCreateCabin from "./useCreateCabin";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import Table from "../../ui/Table";
+import Menus from "../../ui/Menus";
 
 const TableRow = styled.div`
   display: grid;
-  grid-template-columns: 0.6fr 0.8fr 1.6fr 0.6fr 0.6fr 0.6fr 0.6fr 0.6fr 0.6fr;
-
+  grid-template-columns: 0.6fr 0.8fr 1.6fr 0.6fr 0.6fr 0.6fr 0.6fr;
   column-gap: 2.4rem;
   align-items: center;
   padding: 1.4rem 4rem;
@@ -70,7 +71,7 @@ export default function CabinRow({ cabin }) {
   }
 
   return (
-    <TableRow role="row">
+    <Table.Row role="row">
       <Img src={imgURL} />
       <Cabin>{name}</Cabin>
       <p>{`for ${maxCapacity} guests, ${numberOfRooms} rooms${airConditioning ? " with airConditioning." : "."}`}</p>
@@ -82,37 +83,41 @@ export default function CabinRow({ cabin }) {
         <span>&mdash;</span>
       )}
 
-      <button
-        disabled={isCreating}
-        className={buttonStyle}
-        onClick={handleDuplicate}
-      >
-        <HiSquare2Stack />
-      </button>
+      <div>
+        <button
+          disabled={isCreating}
+          className={buttonStyle}
+          onClick={handleDuplicate}
+        >
+          <HiSquare2Stack />
+        </button>
 
-      <Modal>
-        <Modal.Open opensWindowName="editCabin">
-          <button className={buttonStyle}>
-            <HiPencil />
-          </button>
-        </Modal.Open>
-        <Modal.Window name="editCabin">
-          <CreateCabinForm cabin={cabin} />
-        </Modal.Window>
+        <Modal>
+          <Modal.Open opensWindowName="editCabin">
+            <button className={buttonStyle}>
+              <HiPencil />
+            </button>
+          </Modal.Open>
+          <Modal.Window name="editCabin">
+            <CreateCabinForm cabin={cabin} />
+          </Modal.Window>
 
-        <Modal.Open opensWindowName="deleteCabin">
-          <button type="button" role="button" className={buttonStyle}>
-            <HiTrash />
-          </button>
-        </Modal.Open>
-        <Modal.Window name="deleteCabin">
-          <ConfirmDelete
-            resourceName="cabin"
-            disabled={isDeleting}
-            onConfirm={() => deleteCabin(cabinID)}
-          />
-        </Modal.Window>
-      </Modal>
-    </TableRow>
+          <Modal.Open opensWindowName="deleteCabin">
+            <button type="button" role="button" className={buttonStyle}>
+              <HiTrash />
+            </button>
+          </Modal.Open>
+          <Modal.Window name="deleteCabin">
+            <ConfirmDelete
+              resourceName="cabin"
+              disabled={isDeleting}
+              onConfirm={() => deleteCabin(cabinID)}
+            />
+          </Modal.Window>
+        </Modal>
+
+        <Menus.Menu></Menus.Menu>
+      </div>
+    </Table.Row>
   );
 }
