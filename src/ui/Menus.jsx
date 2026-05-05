@@ -123,6 +123,7 @@ function Button({ children, icon, onClick }) {
   function handleClick() {
     onClick?.();
     close();
+    // if (!onClick) close();
   }
 
   return (

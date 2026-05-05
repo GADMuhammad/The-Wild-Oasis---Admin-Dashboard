@@ -33,11 +33,21 @@ const Discount = styled.div`
   color: var(--color-green-700);
 `;
 
-const buttonStyle = "w-fit rounded bg-gray-200 px-10 py-4 text-gray-950 disabled:bg-transparent";
+const buttonStyle =
+  "w-fit rounded bg-gray-200 px-10 py-4 text-gray-950 disabled:bg-transparent";
 
 export default function CabinRow({ cabin }) {
   const { id: cabinID, ...cabinInfo } = cabin;
-  const { airConditioning, area, discount, image: imgURL, maxCapacity, name, numberOfRooms, regularPrice } = cabinInfo;
+  const {
+    airConditioning,
+    area,
+    discount,
+    image: imgURL,
+    maxCapacity,
+    name,
+    numberOfRooms,
+    regularPrice,
+  } = cabinInfo;
 
   const { isDeleting, deleteCabin } = useDeleteCabin();
   const { createCabinFn, isCreating } = useCreateCabin(cabinInfo);
@@ -53,7 +63,11 @@ export default function CabinRow({ cabin }) {
       <p>{`for ${maxCapacity} guests, ${numberOfRooms} rooms${airConditioning ? " with airConditioning." : "."}`}</p>
       <p>{area}m²</p>
       <Price>{formatCurrency(regularPrice)}</Price>
-      {discount ? <Discount>{formatCurrency(discount)}</Discount> : <span>&mdash;</span>}
+      {discount ? (
+        <Discount>{formatCurrency(discount)}</Discount>
+      ) : (
+        <span>&mdash;</span>
+      )}
 
       <div>
         <Modal>
@@ -61,17 +75,21 @@ export default function CabinRow({ cabin }) {
             <Menus.Toggle id={cabinID} />
 
             <Menus.List id={cabinID}>
-              <Menus.Button disabled={isCreating} icon={<HiSquare2Stack />} onClick={handleDuplicate}>
+              <Menus.Button
+                disabled={isCreating}
+                icon={<HiSquare2Stack />}
+                onClick={handleDuplicate}
+              >
                 Duplicate
               </Menus.Button>
 
-              <Modal.Open opens="edit">
+              <Modal.Open opensWindowName="edit">
                 <Menus.Button disabled={isCreating} icon={<HiPencil />}>
                   Edit
                 </Menus.Button>
               </Modal.Open>
 
-              <Modal.Open opens="delete">
+              <Modal.Open opensWindowName="delete">
                 <Menus.Button disabled={isCreating} icon={<HiTrash />}>
                   Delete
                 </Menus.Button>
@@ -83,7 +101,11 @@ export default function CabinRow({ cabin }) {
             </Modal.Window>
 
             <Modal.Window name="delete">
-              <ConfirmDelete resourceName="cabins" disabled={isDeleting} onConfirm={() => deleteCabin(cabinID)} />
+              <ConfirmDelete
+                resourceName="cabins"
+                disabled={isDeleting}
+                onConfirm={() => deleteCabin(cabinID)}
+              />
             </Modal.Window>
           </Menus.Menu>
         </Modal>
