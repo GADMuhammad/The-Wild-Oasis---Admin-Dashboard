@@ -51,6 +51,7 @@ export default function Filter({ filterField, options }) {
           key={option}
           onClick={() => handleClick(option)}
           isActive={currentFilter === option}
+          disabled={currentFilter === option}
         >
           {option.replace("-", " ").replace(/^./, (str) => str.toUpperCase())}
         </FilterButton>

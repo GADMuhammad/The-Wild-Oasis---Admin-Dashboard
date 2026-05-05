@@ -8,19 +8,34 @@ const headings = ["image", "cabin", "capacity", "area", "price", "discount"];
 
 export default function CabinTable() {
   const { isPending, cabins } = useCabins();
-  const [SearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   if (isPending) return <Spinner />;
-  const filterValue = SearchParams.get("discount") || "all";
+  const filterValue = searchParams.get("discount") || "all";
 
+  // FILTER
   function filterBasedOnDiscount(state) {
-    filteredCabins = cabins.filter(({ discount }) => !!discount === state);
+    organizedCabins = cabins.filter(({ discount }) => !!discount === state);
   }
-
-  let filteredCabins;
-  if (filterValue === "all") filteredCabins = cabins;
+  let organizedCabins;
+  if (filterValue === "all") organizedCabins = cabins;
   if (filterValue === "no-discount") filterBasedOnDiscount(false);
   if (filterValue === "with-discount") filterBasedOnDiscount(true);
+
+  // SORT
+  const sortByValue = searchParams.get("sortBy") || "startDate-asc";
+  const [field, direction] = sortByValue.split("-");
+  const modifier = direction === "asc" ? 1 : -1;
+
+  organizedCabins = organizedCabins.sort((a, b) => {
+    const aValue = a[field],
+      bValue = b[field];
+
+    if (typeof aValue === "string") {
+      return aValue.localeCompare(bValue) * modifier;
+    }
+    return (aValue - bValue) * modifier;
+  });
 
   return (
     <Menus>
@@ -33,7 +48,7 @@ export default function CabinTable() {
             <div key={heading}>{heading}</div>
           ))}
         </Table.Header>
-        <Table.Body data={filteredCabins} />
+        <Table.Body data={organizedCabins} />
       </Table>
     </Menus>
   );
