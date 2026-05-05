@@ -13,8 +13,6 @@ import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
 
 const router = createBrowserRouter([
-  // { index: true, element: <Dashboard /> },
-  // { path: "/", element: <Navigate replace to="/dashboard" /> },
   {
     path: "/",
     element: <AppLayout />,
