@@ -2,7 +2,7 @@ import React from "react";
 import TableOperations from "../../ui/TableOperations";
 import Filter from "../../ui/Filter";
 import SortBy from "../../ui/SortBy";
-const filtersOptions = ["all", "no-discount", "with-discount"];
+const filtersOptions = ["all-cabins", "no-discount", "with-discount"];
 const sortOptions = [
   { value: "name-asc", label: "Sort by name (A-Z)" },
   { value: "name-desc", label: "Sort by name (Z-A)" },

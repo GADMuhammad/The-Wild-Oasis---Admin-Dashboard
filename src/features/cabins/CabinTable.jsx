@@ -11,14 +11,14 @@ export default function CabinTable() {
   const [searchParams] = useSearchParams();
 
   if (isPending) return <Spinner />;
-  const filterValue = searchParams.get("discount") || "all";
+  const filterValue = searchParams.get("discount") || "all-cabins";
 
   // FILTER
   function filterBasedOnDiscount(state) {
     organizedCabins = cabins.filter(({ discount }) => !!discount === state);
   }
   let organizedCabins;
-  if (filterValue === "all") organizedCabins = cabins;
+  if (filterValue === "all-cabins") organizedCabins = cabins;
   if (filterValue === "no-discount") filterBasedOnDiscount(false);
   if (filterValue === "with-discount") filterBasedOnDiscount(true);
 
