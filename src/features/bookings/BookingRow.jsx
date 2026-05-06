@@ -1,11 +1,8 @@
 import styled from "styled-components";
 import { format, isToday } from "date-fns";
-
 import Tag from "../../ui/Tag";
 import Table from "../../ui/Table";
-
-import { formatCurrency } from "../../utils/helpers";
-import { formatDistanceFromNow } from "../../utils/helpers";
+import { formatCurrency, formatDistanceFromNow } from "../../utils/helpers";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -44,6 +41,7 @@ function BookingRow({
     numGuests,
     totalPrice,
     status,
+    nationality,
     cabins: { name } = {},
     guests: { firstName, lastName, emailAddress } = {},
   },
@@ -54,7 +52,6 @@ function BookingRow({
     "checked-out": "silver",
   };
   const guestName = `${firstName} ${lastName}`;
-  console.log(guestName);
 
   return (
     <Table.Row>
@@ -81,7 +78,6 @@ function BookingRow({
       <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
-      {/* <Tag>{emailAddress}</Tag> */}
     </Table.Row>
   );
 }

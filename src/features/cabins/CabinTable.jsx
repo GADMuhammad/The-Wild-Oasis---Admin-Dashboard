@@ -4,6 +4,7 @@ import Menus from "../../ui/Menus";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
 import CabinRow from "./CabinRow";
+import Empty from "../../ui/Empty";
 
 const headings = ["image", "cabin", "capacity", "area", "price", "discount"];
 
