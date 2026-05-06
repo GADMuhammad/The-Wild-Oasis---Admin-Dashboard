@@ -44,8 +44,8 @@ function BookingRow({
     numGuests,
     totalPrice,
     status,
-    guests: { fullName: guestName, email },
-    cabins: { name: cabinName },
+    cabins: { name } = {},
+    guests: { firstName, lastName, emailAddress } = {},
   },
 }) {
   const statusToTagName = {
@@ -53,14 +53,16 @@ function BookingRow({
     "checked-in": "green",
     "checked-out": "silver",
   };
+  const guestName = `${firstName} ${lastName}`;
+  console.log(guestName);
 
   return (
     <Table.Row>
-      <Cabin>{cabinName}</Cabin>
+      <Cabin>{name}</Cabin>
 
       <Stacked>
         <span>{guestName}</span>
-        <span>{email}</span>
+        <span>{emailAddress}</span>
       </Stacked>
 
       <Stacked>
@@ -79,6 +81,7 @@ function BookingRow({
       <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
+      {/* <Tag>{emailAddress}</Tag> */}
     </Table.Row>
   );
 }

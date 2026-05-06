@@ -9,8 +9,22 @@ const Tag = styled.span`
   border-radius: 100px;
 
   /* Make these dynamic, based on the received prop */
-  color: var(--color-${(props) => props.type}-700);
-  background-color: var(--color-${(props) => props.type}-100);
+  color: ${(props) =>
+    props.type === "blue"
+      ? "#0369a1"
+      : props.type === "green"
+        ? "#15803d"
+        : "#374151"};
+
+  background-color: ${(props) =>
+    props.type === "blue"
+      ? "#e0f2fe"
+      : props.type === "green"
+        ? "#dcfce7"
+        : "#e5e7eb"};
+
+  /* color: var(--color-${(props) => props.type}-700); */
+  /* background-color: var(--color-${(props) => props.type}-100); */
 `;
 
 export default Tag;

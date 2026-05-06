@@ -55,7 +55,7 @@ const Empty = styled.p`
 const TableContext = createContext(undefined);
 function useTableContext() {
   const context = useContext(TableContext);
-  if (!context) throw new Error("No context!!");
+  if (!context) throw new Error("No TableContext.");
   return context;
 }
 
@@ -85,9 +85,14 @@ Table.Row = function TableRow({ children }) {
   );
 };
 
-Table.Body = function TableBody({ data }) {
-  if (!data.length) return <Empty>No data to show at the moment.</Empty>;
-  return data.map((info) => <CabinRow key={info.id} cabin={info} />);
+// function TableBody_({ data }) {
+//   if (!data?.length) return <Empty>No data to show at the moment.</Empty>;
+//   return data.map((info) => <CabinRow key={info.id} cabin={info} />);
+// }
+
+Table.Body = function ({ data, render }) {
+  if (!data?.length) return <Empty>No data to show at the moment.</Empty>;
+  return <StyledBody>{data?.map(render)}</StyledBody>;
 };
 
 Table.Footer = Footer;

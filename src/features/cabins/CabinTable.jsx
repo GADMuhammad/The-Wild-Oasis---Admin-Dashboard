@@ -3,6 +3,7 @@ import useCabins from "../../hooks/useCabins";
 import Menus from "../../ui/Menus";
 import Spinner from "../../ui/Spinner";
 import Table from "../../ui/Table";
+import CabinRow from "./CabinRow";
 
 const headings = ["image", "cabin", "capacity", "area", "price", "discount"];
 
@@ -37,6 +38,7 @@ export default function CabinTable() {
     return (aValue - bValue) * modifier;
   });
 
+  if (!cabins.length) return <Empty resource="bookings" />;
   return (
     <Menus>
       <Table columns="0.6fr 0.8fr 1.6fr 0.6fr 0.6fr 0.6fr 0.6fr">
@@ -48,7 +50,10 @@ export default function CabinTable() {
             <div key={heading}>{heading}</div>
           ))}
         </Table.Header>
-        <Table.Body data={organizedCabins} />
+        <Table.Body
+          data={organizedCabins}
+          render={(cabin) => <CabinRow key={cabin.id} cabin={cabin} />}
+        />
       </Table>
     </Menus>
   );
