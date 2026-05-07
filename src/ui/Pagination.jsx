@@ -10,6 +10,7 @@ const StyledPagination = styled.div`
 const P = styled.p`
   font-size: 1.4rem;
   margin-left: 0.8rem;
+  margin: auto;
 
   & span {
     font-weight: 600;
@@ -55,3 +56,13 @@ const PaginationButton = styled.button`
     color: var(--color-brand-50);
   }
 `;
+
+export default function Pagination() {
+  return (
+    <StyledPagination>
+      <P>
+        Showing <span>1</span> to <span>10</span> of 20 results
+      </P>
+    </StyledPagination>
+  );
+}

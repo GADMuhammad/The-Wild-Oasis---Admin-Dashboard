@@ -9,11 +9,15 @@ export default function useBookings() {
   const filter =
     !bookingsFilterValue || bookingsFilterValue === "all-bookings"
       ? null
-      : { field: "status", value: bookingsFilterValue };
+      : { field: "status", value: bookingsFilterValue, method: "eq" };
+
+  const sortByValue = searchParams.get("sortBy") || "startDate-desc";
+  const [field, direction] = sortByValue.split("-");
+  const sortBy = { field, direction };
 
   const query = useQuery({
-    queryKey: ["bookings", bookingsFilterValue],
-    queryFn: () => getBookings(filter),
+    queryKey: ["bookings", bookingsFilterValue, sortBy],
+    queryFn: () => getBookings(filter, sortBy),
   });
   const { isPending, data: bookings, error } = query;
   return { isPending, bookings };
