@@ -8,6 +8,7 @@ const StyledTable = styled.div`
   background-color: var(--color-grey-0);
   border-radius: 7px;
   overflow: hidden;
+  /* text-align: center; */
 `;
 const CommonRow = styled.div`
   display: grid;
@@ -30,6 +31,7 @@ const StyledRow = styled(CommonRow)`
   &:not(:last-child) {
     border-bottom: 1px solid var(--color-grey-100);
   }
+  /* text-align: center; */
 `;
 const StyledBody = styled.section`
   margin: 0.4rem 0;

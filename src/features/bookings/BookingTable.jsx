@@ -12,21 +12,22 @@ function BookingTable() {
   if (!bookings.length) return <Empty resource="bookings" />;
   return (
     <Menus>
-      <Table columns="0.6fr 2fr 2.4fr 1.4fr 1fr 3.2rem">
+      <Table columns="0.3fr 1.3fr 1.6fr 2fr 1fr 0.8fr 2fr 3.2rem">
         {/* <Table columns="0.6fr 1fr 1fr 1fr 1fr 20rem"> */}
         <Table.Header>
+          <div>Order</div>
           <div>Cabin</div>
           <div>Guest</div>
           <div>Dates</div>
           <div>Status</div>
           <div>Amount</div>
-          {/* <div></div> */}
+          <div>Country</div>
         </Table.Header>
 
         <Table.Body
           data={bookings}
-          render={(booking) => (
-            <BookingRow key={booking.id} booking={booking} />
+          render={(booking, index) => (
+            <BookingRow key={booking.id} booking={booking} order={index + 1} />
           )}
         />
       </Table>

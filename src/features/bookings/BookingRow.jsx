@@ -41,10 +41,16 @@ function BookingRow({
     numGuests,
     totalPrice,
     status,
-    nationality,
     cabins: { name } = {},
-    guests: { firstName, lastName, emailAddress } = {},
+    guests: {
+      firstName,
+      lastName,
+      emailAddress,
+      nationality,
+      countryFlag,
+    } = {},
   },
+  order,
 }) {
   const statusToTagName = {
     unconfirmed: "blue",
@@ -53,8 +59,22 @@ function BookingRow({
   };
   const guestName = `${firstName} ${lastName}`;
 
+  function flagUrlToEmoji(url) {
+    const match = url.match(/\/([a-z]{2})\.svg$/i);
+    if (!match) return null;
+
+    const countryCode = match[1].toUpperCase();
+
+    const emoji = [...countryCode]
+      .map((char) => String.fromCodePoint(127397 + char.charCodeAt()))
+      .join("");
+
+    return emoji;
+  }
+
   return (
     <Table.Row>
+      <Cabin>{String(order).padStart(2, "0")}</Cabin>
       <Cabin>{name}</Cabin>
 
       <Stacked>
@@ -78,6 +98,10 @@ function BookingRow({
       <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
 
       <Amount>{formatCurrency(totalPrice)}</Amount>
+      {/* <Cabin>{bookingId}</Cabin> */}
+      <Cabin>
+        {`${nationality.split(" (")[0]} ${flagUrlToEmoji(countryFlag)}`}
+      </Cabin>
     </Table.Row>
   );
 }
