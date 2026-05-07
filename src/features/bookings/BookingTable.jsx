@@ -10,7 +10,7 @@ function BookingTable() {
   const { isPending, bookings, elementsCount } = useBookings();
 
   if (isPending) return <Spinner />;
-  if (!bookings.length) return <Empty resource="bookings" />;
+  if (!bookings?.length) return <Empty resource="bookings" />;
   return (
     <Menus>
       <Table columns="0.3fr 1.3fr 1.6fr 2fr 1fr 0.8fr 2fr 3.2rem">
