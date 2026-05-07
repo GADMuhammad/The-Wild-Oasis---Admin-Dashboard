@@ -14,11 +14,12 @@ export default function useBookings() {
   const sortByValue = searchParams.get("sortBy") || "startDate-desc";
   const [field, direction] = sortByValue.split("-");
   const sortBy = { field, direction };
+  const currentPage = searchParams.get("page") ?? 1;
 
   const query = useQuery({
-    queryKey: ["bookings", bookingsFilterValue, sortBy],
-    queryFn: () => getBookings(filter, sortBy),
+    queryKey: ["bookings", bookingsFilterValue, sortBy, +currentPage],
+    queryFn: () => getBookings(filter, sortBy, +currentPage),
   });
-  const { isPending, data: bookings, error } = query;
-  return { isPending, bookings };
+  const { isPending, data: { bookings, elementsCount } = {}, error } = query;
+  return { isPending, bookings, elementsCount };
 }

@@ -1,4 +1,7 @@
+import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi2";
+import { useSearchParams } from "react-router-dom";
 import styled from "styled-components";
+import { PAGE_SIZE } from "../utils/constants";
 
 const StyledPagination = styled.div`
   width: 100%;
@@ -8,9 +11,9 @@ const StyledPagination = styled.div`
 `;
 
 const P = styled.p`
-  font-size: 1.4rem;
+  font-size: 1.6rem;
   margin-left: 0.8rem;
-  margin: auto;
+  /* margin: auto; */
 
   & span {
     font-weight: 600;
@@ -57,12 +60,55 @@ const PaginationButton = styled.button`
   }
 `;
 
-export default function Pagination() {
+export default function Pagination({ elementsCount }) {
+  if (elementsCount <= PAGE_SIZE) return null;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = searchParams.get("page") ?? 1;
+  const pagesCount = Math.ceil(elementsCount / PAGE_SIZE);
+
+  function changePageParams(newValue) {
+    searchParams.set("page", newValue);
+    setSearchParams(searchParams);
+  }
+
+  function goToNextPage() {
+    if (+currentPage === +pagesCount) return;
+    changePageParams(+currentPage + 1);
+  }
+
+  function goToPreviousPage() {
+    if (+currentPage === 1) return;
+    changePageParams(+currentPage - 1);
+  }
   return (
     <StyledPagination>
       <P>
-        Showing <span>1</span> to <span>10</span> of 20 results
+        Showing <span>{(currentPage - 1) * PAGE_SIZE + 1}</span> to{" "}
+        <span>
+          {+currentPage === pagesCount
+            ? elementsCount
+            : currentPage * PAGE_SIZE}
+        </span>{" "}
+        of <span>{elementsCount}</span> results
       </P>
+
+      <Buttons>
+        <PaginationButton
+          onClick={goToPreviousPage}
+          disabled={+currentPage === 1}
+        >
+          <HiChevronDoubleLeft />
+          <span>Previous</span>
+        </PaginationButton>
+
+        <PaginationButton
+          onClick={goToNextPage}
+          disabled={+currentPage === +pagesCount}
+        >
+          <span>Next</span>
+          <HiChevronDoubleRight />
+        </PaginationButton>
+      </Buttons>
     </StyledPagination>
   );
 }
