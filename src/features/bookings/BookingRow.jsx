@@ -3,6 +3,9 @@ import { format, isToday } from "date-fns";
 import Tag from "../../ui/Tag";
 import Table from "../../ui/Table";
 import { formatCurrency, formatDistanceFromNow } from "../../utils/helpers";
+import Menus from "../../ui/Menus";
+import { HiEye } from "react-icons/hi2";
+import { useNavigate } from "react-router-dom";
 
 const Cabin = styled.div`
   font-size: 1.6rem;
@@ -53,11 +56,11 @@ function BookingRow({
   order,
 }) {
   const statusToTagName = {
-    unconfirmed: "blue",
-    "checked-in": "green",
-    "checked-out": "silver",
-  };
-  const guestName = `${firstName} ${lastName}`;
+      unconfirmed: "blue",
+      "checked-in": "green",
+      "checked-out": "silver",
+    },
+    guestName = `${firstName} ${lastName}`;
 
   function flagUrlToEmoji(url) {
     const match = url.match(/\/([a-z]{2})\.svg$/i);
@@ -71,6 +74,8 @@ function BookingRow({
 
     return emoji;
   }
+
+  const navigate = useNavigate();
 
   return (
     <Table.Row>
@@ -102,6 +107,18 @@ function BookingRow({
       <Cabin>
         {`${nationality.split(" (")[0]} ${flagUrlToEmoji(countryFlag)}`}
       </Cabin>
+
+      <Menus.Menu>
+        <Menus.Toggle id={bookingId} />
+        <Menus.List id={bookingId}>
+          <Menus.Button
+            icon={<HiEye />}
+            onClick={() => navigate(`/bookings/${bookingId}`)}
+          >
+            See details
+          </Menus.Button>
+        </Menus.List>
+      </Menus.Menu>
     </Table.Row>
   );
 }
