@@ -16,6 +16,7 @@ import Account from "./pages/Account";
 import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
+import CheckIn from "./pages/CheckIn";
 
 const router = createBrowserRouter([
   { path: "/", element: <Navigate replace to="/dashboard" /> },
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
       { path: "/dashboard", element: <Dashboard /> },
       { path: "/bookings", Component: Bookings },
       { path: "/bookings/:bookingId", Component: Booking },
+      { path: "/checkIn/:bookingId", Component: CheckIn },
       { path: "/cabins", Component: Cabins },
       { path: "/users", Component: Users },
       { path: "/settings", Component: Settings },
