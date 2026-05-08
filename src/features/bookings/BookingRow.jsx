@@ -7,7 +7,7 @@ import Menus from "../../ui/Menus";
 import { HiEye } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 
-const Cabin = styled.div`
+const Cabin = styled.p`
   font-size: 1.6rem;
   font-weight: 600;
   color: var(--color-grey-600);
@@ -81,12 +81,11 @@ function BookingRow({
     <Table.Row>
       <Cabin>{String(order).padStart(2, "0")}</Cabin>
       <Cabin>{name}</Cabin>
-
+      <Cabin>{bookingId}</Cabin>
       <Stacked>
         <span>{guestName}</span>
         <span>{emailAddress}</span>
       </Stacked>
-
       <Stacked>
         <span>
           {isToday(new Date(startDate))
@@ -99,15 +98,9 @@ function BookingRow({
           {format(new Date(endDate), "MMM dd yyyy")}
         </span>
       </Stacked>
-
       <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
-
       <Amount>{formatCurrency(totalPrice)}</Amount>
-      {/* <Cabin>{bookingId}</Cabin> */}
-      <Cabin>
-        {`${nationality.split(" (")[0]} ${flagUrlToEmoji(countryFlag)}`}
-      </Cabin>
-
+      <Cabin>{`${nationality.split(" (")[0]} ${flagUrlToEmoji(countryFlag)}`}</Cabin>
       <Menus.Menu>
         <Menus.Toggle id={bookingId} />
         <Menus.List id={bookingId}>

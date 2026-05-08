@@ -13,11 +13,11 @@ function BookingTable() {
   if (!bookings?.length) return <Empty resource="bookings" />;
   return (
     <Menus>
-      <Table columns="0.3fr 1.3fr 1.6fr 2fr 1fr 0.8fr 2fr 3.2rem">
-        {/* <Table columns="0.6fr 1fr 1fr 1fr 1fr 20rem"> */}
+      <Table columns="0.3fr 1.3fr 0.3fr 1.6fr 2fr 1fr 0.8fr 2fr 3.2rem">
         <Table.Header>
           <div>Order</div>
-          <div>Cabin</div>
+          <div>Cabin Name</div>
+          <div>Id</div>
           <div>Guest</div>
           <div>Dates</div>
           <div>Status</div>
