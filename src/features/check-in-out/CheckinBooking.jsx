@@ -8,6 +8,10 @@ import ButtonText from "../../ui/ButtonText";
 import { useMoveBack } from "../../hooks/useMoveBack";
 import useBooking from "../bookings/useBooking";
 import Spinner from "../../ui/Spinner";
+import Checkbox from "../../ui/Checkbox";
+import { useEffect, useState } from "react";
+import { formatCurrency } from "../../utils/helpers";
+import useCheckIn from "./useCheckIn";
 
 const Box = styled.div`
   /* Box */
@@ -19,20 +23,29 @@ const Box = styled.div`
 
 function CheckInBooking() {
   const moveBack = useMoveBack();
-
+  const { checkIn, isCheckingIn } = useCheckIn();
   const { isPending, booking = {} } = useBooking();
-  if (isPending) return <Spinner />;
+  const [confirmPaid, setConfirmPaid] = useState(booking?.isPaid);
 
+  useEffect(
+    () => setConfirmPaid(booking.isPaid),
+    [booking?.isPaid, setConfirmPaid],
+  );
+
+  if (isPending) return <Spinner />;
   const {
     id: bookingId,
-    guests,
+    guests: { firstName, lastName },
     totalPrice,
     numGuests,
     hasBreakfast,
     numNights,
   } = booking;
 
-  function handleCheckIn() {}
+  function handleCheckIn() {
+    if (!confirmPaid) return;
+    checkIn(bookingId);
+  }
 
   return (
     <>
@@ -43,8 +56,22 @@ function CheckInBooking() {
 
       <BookingDataBox booking={booking} />
 
+      <Box>
+        <Checkbox
+          id={bookingId}
+          checked={confirmPaid}
+          disabled={confirmPaid || isCheckingIn} // No UNDO
+          onChange={() => setConfirmPaid((prev) => !prev)}
+        >
+          Confirm that {firstName} {lastName} has paid the total amount{" "}
+          {formatCurrency(totalPrice)}
+        </Checkbox>
+      </Box>
+
       <ButtonGroup>
-        <Button onClick={handleCheckIn}>Check in booking #{bookingId}</Button>
+        <Button onClick={handleCheckIn} disabled={!confirmPaid || isCheckingIn}>
+          Check in booking #{bookingId}
+        </Button>
         <Button variation="secondary" onClick={moveBack}>
           Back
         </Button>

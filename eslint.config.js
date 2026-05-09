@@ -5,7 +5,6 @@ import reactRefresh from "eslint-plugin-react-refresh";
 import react from "eslint-plugin-react";
 
 export default [
-  // تجاهل المجلدات (بديل لـ globalIgnores)
   { ignores: ["dist"] },
   js.configs.recommended,
 
@@ -20,10 +19,17 @@ export default [
         sourceType: "module",
       },
     },
-    plugins: { react, "react-hooks": reactHooks, "react-refresh": reactRefresh },
+    plugins: {
+      react,
+      "react-hooks": reactHooks,
+      "react-refresh": reactRefresh,
+    },
     rules: {
-      // ...reactHooks.configs.recommended.rules,
-      "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
+      ...reactHooks.configs.recommended.rules,
+      "react-refresh/only-export-components": [
+        "warn",
+        { allowConstantExport: true },
+      ],
       "react/jsx-no-target-blank": "off",
       "no-undef": "error",
       "react/prop-types": "off",
