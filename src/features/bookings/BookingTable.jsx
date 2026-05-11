@@ -29,7 +29,7 @@ function BookingTable() {
           render={(booking, index) => (
             <BookingRow key={booking.id} booking={booking} order={index + 1} />
           )}
-        />{" "}
+        />
         <Table.Footer>
           <Pagination elementsCount={elementsCount} />
         </Table.Footer>
