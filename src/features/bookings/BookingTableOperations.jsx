@@ -4,8 +4,8 @@ import TableOperations from "../../ui/TableOperations";
 const statusFilterOptions = [
   "all-bookings",
   "unconfirmed",
-  "checked-out",
   "checked-in",
+  "checked-out",
 ];
 const sortOptions = [
   { value: "startDate-desc", label: "Sort by date (recent first)" },

@@ -6,7 +6,7 @@ export default function SortBy({ options }) {
   const searchByValue = searchParams.get("sortBy") || options[0];
 
   function handleChange(event) {
-    searchParams.set("page", 1);
+    searchParams.get("page") && searchParams.set("page", 1);
     searchParams.set("sortBy", event.target.value);
     setSearchParams(searchParams);
   }
