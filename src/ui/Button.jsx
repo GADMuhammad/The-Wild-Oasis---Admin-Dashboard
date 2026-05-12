@@ -54,7 +54,8 @@ const Button = styled.button`
   box-shadow: var(--shadow-sm);
   ${(props) => sizes[props.size || "medium"]}
   ${(props) => variations[props.variation || "primary"]}
-  
+  width: 48rem;
+
   &:disabled {
     cursor: not-allowed;
     background-color: var(--color-grey-300);

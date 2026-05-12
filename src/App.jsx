@@ -19,7 +19,7 @@ import AppLayout from "./ui/AppLayout";
 import CheckIn from "./pages/CheckIn";
 
 const router = createBrowserRouter([
-  { path: "/", element: <Navigate replace to="/dashboard" /> },
+  { path: "/", element: <Navigate replace to="/login" /> },
   {
     path: "/",
     element: <AppLayout />,
