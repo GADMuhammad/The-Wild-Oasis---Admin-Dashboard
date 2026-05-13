@@ -17,6 +17,7 @@ const sizes = {
     font-size: 1.6rem;
     padding: 1.2rem 2.4rem;
     font-weight: 500;
+    width: 48rem;
   `,
 };
 
@@ -54,7 +55,6 @@ const Button = styled.button`
   box-shadow: var(--shadow-sm);
   ${(props) => sizes[props.size || "medium"]}
   ${(props) => variations[props.variation || "primary"]}
-  width: 48rem;
 
   &:disabled {
     cursor: not-allowed;

@@ -17,12 +17,17 @@ import Login from "./pages/Login";
 import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
 import CheckIn from "./pages/CheckIn";
+import ProtectedRoute from "./ui/ProtectedRoute";
 
 const router = createBrowserRouter([
   { path: "/", element: <Navigate replace to="/login" /> },
   {
     path: "/",
-    element: <AppLayout />,
+    element: (
+      <ProtectedRoute>
+        <AppLayout />
+      </ProtectedRoute>
+    ),
     children: [
       { path: "/dashboard", element: <Dashboard /> },
       { path: "/bookings", Component: Bookings },
