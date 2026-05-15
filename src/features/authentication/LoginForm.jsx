@@ -8,9 +8,9 @@ import Searching from "../../ui/Searching";
 import SpinnerMini from "../../ui/SpinnerMini";
 
 function LoginForm() {
-  const [email, setEmail] = useState("gad@example.com");
-  const [password, setPassword] = useState("gad101gad");
-  const { isPending, login } = useLogin();
+  const [email, setEmail] = useState("ranek58206@acanok.com"),
+    [password, setPassword] = useState("101gad101gad"),
+    { isPending, login } = useLogin();
 
   function handleSubmit(event) {
     event.preventDefault();

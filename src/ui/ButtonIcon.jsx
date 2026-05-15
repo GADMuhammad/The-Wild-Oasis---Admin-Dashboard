@@ -4,7 +4,7 @@ const ButtonIcon = styled.button`
   background: none;
   border: none;
   padding: 0.6rem;
-  border-radius: var(--border-radius-sm);
+  border-radius: 9px;
   transition: all 0.2s;
 
   &:hover {
