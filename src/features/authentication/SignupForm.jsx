@@ -78,10 +78,17 @@ export default function SignupForm() {
 
       <FormRow>
         {/* type is an HTML attribute! */}
-        <Button disabled={isPending} variation="secondary" type="reset">
+        <Button
+          onClick={reset}
+          disabled={isPending}
+          variation="secondary"
+          type="reset"
+        >
           Cancel
         </Button>
-        <Button disabled={isPending}>Create new user</Button>
+        <Button onClick={reset} disabled={isPending}>
+          Create new user
+        </Button>
       </FormRow>
     </Form>
   );
