@@ -16,6 +16,7 @@ export async function login(email, password) {
     email,
     password,
   });
+
   if (error) throw new Error(error.message);
   return data;
 }
@@ -25,8 +26,8 @@ export async function getCurrentUser() {
   if (!data.session) return null;
 
   const { data: userData, error } = await supabase.auth.getUser();
-  if (error) throw new Error(error.message);
 
+  if (error) throw new Error(error.message);
   return userData?.user;
 }
 
@@ -60,6 +61,7 @@ export async function updateCurrentUser({ password, fullName, avatar }) {
         avatar: `${supabaseUrl}/storage/v1/object/public/avatars/${fileName}`,
       },
     });
+
   if (UpdateError) throw new Error(UpdateError.message);
   return updatedUser;
 }
