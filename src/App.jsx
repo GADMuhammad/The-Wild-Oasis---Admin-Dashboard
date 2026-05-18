@@ -18,6 +18,7 @@ import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
 import CheckIn from "./pages/CheckIn";
 import ProtectedRoute from "./ui/ProtectedRoute";
+import { DarkModeProvide } from "./context/DarkModeContext";
 
 const router = createBrowserRouter([
   { path: "/", element: <Navigate replace to="/login" /> },
@@ -50,20 +51,22 @@ const queryClient = new QueryClient({
 
 export default function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ReactQueryDevtools />
-      <Toaster
-        position="top-center"
-        gutter={12}
-        containerStyle={{ margin: "8px" }}
-        toastOptions={{
-          success: { duration: 3000 },
-          error: { duration: 9000 },
-          // prettier-ignore
-          style: { fontSize: "18px", maxWidth: "500px", padding: "16px 24px", backgroundColor: 'var(--color-grey-0)', color: 'var(--color-grey-700)' },
-        }}
-      />
-      <RouterProvider router={router} />
-    </QueryClientProvider>
+    <DarkModeProvide>
+      <QueryClientProvider client={queryClient}>
+        <ReactQueryDevtools />
+        <Toaster
+          position="top-center"
+          gutter={12}
+          containerStyle={{ margin: "8px" }}
+          toastOptions={{
+            success: { duration: 3000 },
+            error: { duration: 9000 },
+            // prettier-ignore
+            style: { fontSize: "18px", maxWidth: "500px", padding: "16px 24px", backgroundColor: 'var(--color-grey-0)', color: 'var(--color-grey-700)' },
+          }}
+        />
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </DarkModeProvide>
   );
 }
