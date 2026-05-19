@@ -7,7 +7,7 @@ import { dashboardFilterOptions } from "./DashboardFilter";
 export default function useRecentDays() {
   const [searchParams] = useSearchParams();
   const numberOfDays =
-    +searchParams.get("last") || dashboardFilterOptions[0].value;
+    +searchParams.get("last") || +dashboardFilterOptions[0].value;
   const queryDate = subDays(new Date(), numberOfDays).toISOString();
 
   const { data: stays, isPending } = useQuery({

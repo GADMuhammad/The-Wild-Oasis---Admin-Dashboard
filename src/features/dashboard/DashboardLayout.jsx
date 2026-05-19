@@ -11,7 +11,7 @@ const StyledDashboardLayout = styled.div`
 `;
 
 export default function DashboardLayout() {
-  const { bookings, isPending: isLoadingBookings } = useRecentBookings();
+  // const { bookings, isPending: isLoadingBookings } = useRecentBookings();
   const { stays, isPending: isLoadingDays } = useRecentDays(); // with a problem in cache here - fix it.
 
   if (isLoadingDays) return <Spinner />;
