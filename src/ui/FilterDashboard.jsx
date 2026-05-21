@@ -39,13 +39,11 @@ export default function FilterDashboard({ filterField, options }) {
   const [searchParams, setSearchParams] = useSearchParams();
 
   function handleClick(value) {
-    if (searchParams.get("page")) searchParams.set("page", 1);
     searchParams.set(filterField, value);
     setSearchParams(searchParams);
   }
 
-  const currentFilter =
-    Number(searchParams.get(filterField)) || options[0].value;
+  const currentFilter = +searchParams.get(filterField) || options[0].value;
 
   return (
     <StyledFilter>

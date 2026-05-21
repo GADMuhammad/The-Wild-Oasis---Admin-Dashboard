@@ -1,5 +1,33 @@
 import styled from "styled-components";
 
+// YOU WILL NEED IT WHEN CONVERTING STYLED-COMPONENTS TO TAILWIND-CSS, OR MAYBE NO. WE WILL SEE.
+function getTailwindColor(color, type = "bg", shade = 500) {
+  const validColors = [
+    "red",
+    "blue",
+    "green",
+    "yellow",
+    "purple",
+    "pink",
+    "gray",
+    "orange",
+    "teal",
+    "indigo",
+    "emerald",
+    "cyan",
+    "lime",
+    "amber",
+  ];
+
+  const normalized = color.toLowerCase();
+
+  if (!validColors.includes(normalized)) {
+    return `${type}-gray-${shade}`;
+  }
+
+  return `${type}-${normalized}-${shade}`;
+}
+
 const StyledStat = styled.div`
   /* Box */
   background-color: var(--color-grey-0);
@@ -23,12 +51,16 @@ const Icon = styled.div`
   justify-content: center;
 
   /* Make these dynamic, based on the received prop */
-  background-color: var(--color-${(props) => props.color}-100);
+  /* background-color: var(--color-${(props) => props.color}-100); */
+  /* background-color: ${(props) => `var(--color-${props.color}-100)`}; */
+  /* background-color: ${(props) => props.color}; */
 
   & svg {
     width: 3.2rem;
     height: 3.2rem;
-    color: var(--color-${(props) => props.color}-700);
+    /* color: var(--color-${(props) => props.color}-700); */
+    /* color: ${(props) => `var(--color-${props.color}-700)`}; */
+    /* color: ${(props) => props.color}; */
   }
 `;
 
