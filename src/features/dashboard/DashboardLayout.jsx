@@ -11,6 +11,7 @@ import {
 } from "react-icons/hi2";
 import { formatCurrency } from "../../utils/helpers";
 import useCabins from "../../hooks/useCabins";
+import SalesChart from "./SalesChart";
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -74,6 +75,7 @@ export default function DashboardLayout() {
         value={occupation}
         color="yellow"
       />
+      <SalesChart />
     </StyledDashboardLayout>
   );
 }
