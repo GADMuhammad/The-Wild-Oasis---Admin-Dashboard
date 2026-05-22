@@ -13,6 +13,7 @@ import { formatCurrency } from "../../utils/helpers";
 import useCabins from "../../hooks/useCabins";
 import SalesChart from "./SalesChart";
 import DurationChart from "./DurationChart";
+import TodayActivity from "../check-in-out/TodayActivity";
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -26,7 +27,6 @@ export default function DashboardLayout() {
   const { cabins, isPending: isLoadingCabins } = useCabins();
   const {
     confirmedStays,
-    stays,
     isPending: isLoadingDays,
     numberOfDays,
   } = useRecentDays();
@@ -76,6 +76,7 @@ export default function DashboardLayout() {
         value={occupation}
         color="yellow"
       />
+      <TodayActivity />
       <DurationChart confirmedStays={confirmedStays} />
       <SalesChart bookings={bookings} numberOfDays={numberOfDays} />
     </StyledDashboardLayout>

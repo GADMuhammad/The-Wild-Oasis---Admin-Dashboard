@@ -7,12 +7,12 @@ import Button from "../../ui/Button";
 import ButtonText from "../../ui/ButtonText";
 import { useMoveBack } from "../../hooks/useMoveBack";
 import useBooking from "../bookings/useBooking";
-import Spinner from "../../ui/Spinner";
 import Checkbox from "../../ui/Checkbox";
 import { useEffect, useState } from "react";
 import { formatCurrency } from "../../utils/helpers";
 import useCheckIn from "./useCheckIn";
 import useSettings from "../settings/useSettings";
+import Spinner from "../../ui/Spinner";
 
 const Box = styled.div`
   /* Box */
@@ -25,7 +25,6 @@ const Box = styled.div`
 function CheckInBooking() {
   const moveBack = useMoveBack();
   const { checkIn, isCheckingIn } = useCheckIn();
-
   const { isPending: isLoadingBooking, booking = {} } = useBooking();
   const { isPending: isLoadingSettings, settings } = useSettings();
 
@@ -79,7 +78,6 @@ function CheckInBooking() {
       </Row>
 
       <BookingDataBox booking={booking} />
-
       {!hasBreakfast && (
         <Box>
           <Checkbox

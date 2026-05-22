@@ -19,5 +19,5 @@ export default function useRecentDays() {
     ["checked-in", "checked-out"].includes(status),
   );
 
-  return { confirmedStays, stays, isPending, numberOfDays };
+  return { confirmedStays, isPending, numberOfDays };
 }

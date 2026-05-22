@@ -21,7 +21,7 @@ import ProtectedRoute from "./ui/ProtectedRoute";
 import { DarkModeProvide } from "./context/DarkModeContext";
 
 const router = createBrowserRouter([
-  { path: "/", element: <Navigate replace to="/login" /> },
+  { path: "/", element: <Navigate replace to="/dashboard" /> },
   {
     path: "/",
     element: (
