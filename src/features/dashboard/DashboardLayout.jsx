@@ -12,6 +12,7 @@ import {
 import { formatCurrency } from "../../utils/helpers";
 import useCabins from "../../hooks/useCabins";
 import SalesChart from "./SalesChart";
+import DurationChart from "./DurationChart";
 
 const StyledDashboardLayout = styled.div`
   display: grid;
@@ -75,7 +76,8 @@ export default function DashboardLayout() {
         value={occupation}
         color="yellow"
       />
-      <SalesChart />
+      <DurationChart confirmedStays={confirmedStays} />
+      <SalesChart bookings={bookings} numberOfDays={numberOfDays} />
     </StyledDashboardLayout>
   );
 }
