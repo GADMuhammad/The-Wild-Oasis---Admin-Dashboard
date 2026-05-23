@@ -10,14 +10,14 @@ function useDarkModeContext() {
 }
 
 function DarkModeProvide({ children }) {
-  const [isDarkMode, setIsDarkMode] = useLocalStorageState(false, "darkMode");
-
-  useEffect(
-    function () {
-      document.documentElement.classList.toggle("dark-mode", isDarkMode);
-    },
-    [isDarkMode],
+  const [isDarkMode, setIsDarkMode] = useLocalStorageState(
+    window.matchMedia("(prefers-color-scheme: dark)").matches,
+    "darkMode",
   );
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark-mode", isDarkMode);
+  }, [isDarkMode]);
 
   return (
     <DarkModeContext.Provider
