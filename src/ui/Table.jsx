@@ -9,6 +9,7 @@ const StyledTable = styled.div`
   border-radius: 7px;
   overflow: hidden;
   /* text-align: start; */
+  width: 100%;
 `;
 const CommonRow = styled.div`
   display: grid;
