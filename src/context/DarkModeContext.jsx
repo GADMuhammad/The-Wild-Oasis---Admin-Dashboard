@@ -9,7 +9,7 @@ function useDarkModeContext() {
   return context;
 }
 
-function DarkModeProvide({ children }) {
+function DarkModeProvider({ children }) {
   const [isDarkMode, setIsDarkMode] = useLocalStorageState(
     window.matchMedia("(prefers-color-scheme: dark)").matches,
     "darkMode",
@@ -31,4 +31,4 @@ function DarkModeProvide({ children }) {
   );
 }
 
-export { DarkModeProvide, useDarkModeContext };
+export { DarkModeProvider, useDarkModeContext };

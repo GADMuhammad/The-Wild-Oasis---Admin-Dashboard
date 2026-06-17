@@ -18,10 +18,10 @@ import PageNotFound from "./pages/PageNotFound";
 import AppLayout from "./ui/AppLayout";
 import CheckIn from "./pages/CheckIn";
 import ProtectedRoute from "./ui/ProtectedRoute";
-import { DarkModeProvide } from "./context/DarkModeContext";
+import { DarkModeProvider } from "./context/DarkModeContext";
 
 const router = createBrowserRouter([
-  { path: "/", element: <Navigate replace to="/dashboard" /> },
+  { index:true, element: <Navigate replace to="/dashboard" /> },
   {
     path: "/",
     element: (
@@ -51,7 +51,7 @@ const queryClient = new QueryClient({
 
 export default function App() {
   return (
-    <DarkModeProvide>
+    <DarkModeProvider>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools />
         <Toaster
@@ -67,6 +67,6 @@ export default function App() {
         />
         <RouterProvider router={router} />
       </QueryClientProvider>
-    </DarkModeProvide>
+    </DarkModeProvider>
   );
 }
