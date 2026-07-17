@@ -1,70 +1,28 @@
-import styled, { css } from "styled-components";
-
 const sizes = {
-  small: css`
-    font-size: 1.2rem;
-    padding: 0.4rem 0.8rem;
-    text-transform: uppercase;
-    font-weight: 600;
-    text-align: center;
-  `,
-  medium: css`
-    font-size: 1.4rem;
-    padding: 1.2rem 1.6rem;
-    font-weight: 500;
-  `,
-  large: css`
-    font-size: 1.6rem;
-    padding: 1.2rem 2.4rem;
-    font-weight: 500;
-    width: 48rem;
-  `,
+  small:
+    "px-[0.8rem] py-[0.4rem] text-[1.2rem] font-semibold uppercase text-center",
+  medium: "px-[1.6rem] py-[1.2rem] text-[1.4rem] font-medium",
+  large: "w-[48rem] px-[2.4rem] py-[1.2rem] text-[1.6rem] font-medium",
 };
 
 const variations = {
-  primary: css`
-    color: var(--color-brand-50);
-    background-color: var(--color-brand-600);
-
-    &:hover {
-      background-color: var(--color-brand-700);
-    }
-  `,
-  secondary: css`
-    color: var(--color-grey-600);
-    background: var(--color-grey-0);
-    border: 1px solid var(--color-grey-200);
-
-    &:hover {
-      background-color: var(--color-grey-50);
-    }
-  `,
-  danger: css`
-    color: var(--color-red-100);
-    background-color: var(--color-red-700);
-
-    &:hover {
-      background-color: var(--color-red-800);
-    }
-  `,
+  primary: "bg-brand-600 text-brand-50 hover:bg-brand-700",
+  secondary:
+    "border border-grey-200 bg-grey-0 text-grey-600 hover:bg-grey-50",
+  danger: "bg-red-700 text-red-100 hover:bg-red-800",
 };
 
-const Button = styled.button`
-  border: none;
-  border-radius: 5px; // --radius-sm: 5px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04); // --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-  ${(props) => sizes[props.size || "medium"]}
-  ${(props) => variations[props.variation || "primary"]}
-
-  &:disabled {
-    cursor: not-allowed;
-    background-color: var(--color-grey-300);
-  }
-`;
-
-Button.defaultProps = {
-  variation: "primary",
-  size: "medium",
-};
-
-export default Button;
+export default function Button({
+  size = "medium",
+  variation = "primary",
+  as: Component = "button",
+  className = "",
+  ...props
+}) {
+  return (
+    <Component
+      className={`rounded-sm shadow-sm disabled:cursor-not-allowed disabled:bg-grey-300 ${sizes[size]} ${variations[variation]} ${className}`}
+      {...props}
+    />
+  );
+}

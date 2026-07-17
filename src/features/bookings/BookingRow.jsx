@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { format, isToday } from "date-fns";
 import Tag from "../../ui/Tag";
 import Table from "../../ui/Table";
@@ -16,32 +15,7 @@ import useDeleteBooking from "./useDeleteBooking";
 import Modal from "../../ui/Modal";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 
-const Cabin = styled.p`
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: var(--color-grey-600);
-  font-family: "Sono";
-`;
-
-const Stacked = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-
-  & span:first-child {
-    font-weight: 500;
-  }
-
-  & span:last-child {
-    color: var(--color-grey-500);
-    font-size: 1.2rem;
-  }
-`;
-
-const Amount = styled.div`
-  font-family: "Sono";
-  font-weight: 500;
-`;
+const cabinClass = "font-sono text-[1.6rem] font-semibold text-grey-600";
 
 function BookingRow({
   booking: {
@@ -90,14 +64,14 @@ function BookingRow({
 
   return (
     <Table.Row>
-      <Cabin>{String(order).padStart(2, "0")}</Cabin>
-      <Cabin>{name}</Cabin>
-      <Cabin>{bookingId}</Cabin>
-      <Stacked>
+      <p className={cabinClass}>{String(order).padStart(2, "0")}</p>
+      <p className={cabinClass}>{name}</p>
+      <p className={cabinClass}>{bookingId}</p>
+      <div className="flex flex-col gap-[0.2rem] [&>span:first-child]:font-medium [&>span:last-child]:text-[1.2rem] [&>span:last-child]:text-grey-500">
         <span>{guestName}</span>
         <span>{emailAddress}</span>
-      </Stacked>
-      <Stacked>
+      </div>
+      <div className="flex flex-col gap-[0.2rem] [&>span:first-child]:font-medium [&>span:last-child]:text-[1.2rem] [&>span:last-child]:text-grey-500">
         <span>
           {isToday(new Date(startDate))
             ? "Today"
@@ -108,10 +82,10 @@ function BookingRow({
           {format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}
           {format(new Date(endDate), "MMM dd yyyy")}
         </span>
-      </Stacked>
+      </div>
       <Tag type={statusToTagName[status]}>{status.replace("-", " ")}</Tag>
-      <Amount>{formatCurrency(totalPrice)}</Amount>
-      <Cabin>{`${nationality.split(" (")[0]} ${flagUrlToEmoji(countryFlag)}`}</Cabin>
+      <div className="font-sono font-medium">{formatCurrency(totalPrice)}</div>
+      <p className={cabinClass}>{`${nationality.split(" (")[0]} ${flagUrlToEmoji(countryFlag)}`}</p>
 
       <Modal>
         <Menus.Menu>

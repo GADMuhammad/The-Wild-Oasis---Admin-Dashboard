@@ -1,27 +1,10 @@
-import styled, { css } from "styled-components";
-
-const Row = styled.div`
-  display: flex;
-  /* flex-direction: column; */
-  gap: 1.6rem;
-
-  ${(props) =>
-    props.type === "horizontal" &&
-    css`
-      justify-content: space-between;
-      align-items: center;
-    `}
-
-  ${(props) =>
-    props.type === "vertical" &&
-    css`
-      flex-direction: column;
-      gap: 1.6rem;
-    `}
-`;
-
-Row.defaultProps = {
-  type: "vertical",
+const types = {
+  horizontal: "justify-between items-center",
+  vertical: "flex-col",
 };
 
-export default Row;
+export default function Row({ type = "vertical", children }) {
+  return (
+    <div className={`flex gap-[1.6rem] ${types[type]}`}>{children}</div>
+  );
+}

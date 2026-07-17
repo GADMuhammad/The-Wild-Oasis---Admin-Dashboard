@@ -1,30 +1,15 @@
-import styled from "styled-components";
+const colors = {
+  blue: "text-blue-700 bg-blue-100",
+  green: "text-green-700 bg-green-100",
+  silver: "text-grey-700 bg-grey-200",
+};
 
-const Tag = styled.span`
-  width: fit-content;
-  text-transform: uppercase;
-  font-size: 1.1rem;
-  font-weight: 600;
-  padding: 0.4rem 1.2rem;
-  border-radius: 100px;
-
-  /* Make these dynamic, based on the received prop */
-  color: ${(props) =>
-    props.type === "blue"
-      ? "#0369a1"
-      : props.type === "green"
-        ? "#15803d"
-        : "#374151"};
-
-  background-color: ${(props) =>
-    props.type === "blue"
-      ? "#e0f2fe"
-      : props.type === "green"
-        ? "#dcfce7"
-        : "#e5e7eb"};
-
-  /* color: var(--color-${(props) => props.type}-700); */
-  /* background-color: var(--color-${(props) => props.type}-100); */
-`;
-
-export default Tag;
+export default function Tag({ type = "silver", children }) {
+  return (
+    <span
+      className={`w-fit rounded-full px-[1.2rem] py-[0.4rem] text-[1.1rem] font-semibold uppercase ${colors[type] ?? colors.silver}`}
+    >
+      {children}
+    </span>
+  );
+}

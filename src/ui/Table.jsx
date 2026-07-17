@@ -1,59 +1,4 @@
 import { createContext, useContext } from "react";
-import styled from "styled-components";
-import CabinRow from "../features/cabins/CabinRow";
-
-const StyledTable = styled.div`
-  border: 1px solid var(--color-grey-200);
-  font-size: 1.4rem;
-  background-color: var(--color-grey-0);
-  border-radius: 7px;
-  overflow: hidden;
-  /* text-align: start; */
-  width: 100%;
-`;
-const CommonRow = styled.div`
-  display: grid;
-  grid-template-columns: ${(props) => props.columns};
-  column-gap: 2.4rem;
-  align-items: center;
-  transition: none;
-`;
-const StyledHeader = styled(CommonRow)`
-  padding: 1.6rem 2.4rem;
-  background-color: var(--color-grey-50);
-  border-bottom: 1px solid var(--color-grey-100);
-  text-transform: uppercase;
-  letter-spacing: 0.4px;
-  font-weight: 600;
-  color: var(--color-grey-600);
-`;
-const StyledRow = styled(CommonRow)`
-  padding: 1.2rem 2.4rem;
-  &:not(:last-child) {
-    border-bottom: 1px solid var(--color-grey-100);
-  }
-  /* text-align: center; */
-`;
-const StyledBody = styled.section`
-  margin: 0.4rem 0;
-`;
-const Footer = styled.footer`
-  background-color: var(--color-grey-50);
-  display: flex;
-  justify-content: center;
-  padding: 1.2rem;
-
-  /* This will hide the footer when it contains no child elements. Possible thanks to the parent selector :has 🎉 */
-  &:not(:has(*)) {
-    display: none;
-  }
-`;
-const Empty = styled.p`
-  font-size: 1.6rem;
-  font-weight: 500;
-  text-align: center;
-  margin: 2.4rem;
-`;
 
 const TableContext = createContext(undefined);
 function useTableContext() {
@@ -65,7 +10,12 @@ function useTableContext() {
 export default function Table({ columns, children }) {
   return (
     <TableContext.Provider value={{ columns }}>
-      <StyledTable role="table">{children}</StyledTable>
+      <div
+        role="table"
+        className="w-full overflow-hidden rounded-md border border-grey-200 bg-grey-0 text-[1.4rem]"
+      >
+        {children}
+      </div>
     </TableContext.Provider>
   );
 }
@@ -73,29 +23,43 @@ export default function Table({ columns, children }) {
 Table.Header = function TableHeader({ children }) {
   const { columns } = useTableContext();
   return (
-    <StyledHeader role="row" columns={columns} as="header">
+    <header
+      role="row"
+      style={{ gridTemplateColumns: columns }}
+      className="grid items-center gap-x-[2.4rem] border-b border-grey-100 bg-grey-50 px-[2.4rem] py-[1.6rem] font-semibold tracking-[0.4px] text-grey-600 uppercase"
+    >
       {children}
-    </StyledHeader>
+    </header>
   );
 };
 
 Table.Row = function TableRow({ children }) {
   const { columns } = useTableContext();
   return (
-    <StyledRow role="row" columns={columns}>
+    <div
+      role="row"
+      style={{ gridTemplateColumns: columns }}
+      className="grid items-center gap-x-[2.4rem] px-[2.4rem] py-[1.2rem] [&:not(:last-child)]:border-b [&:not(:last-child)]:border-grey-100"
+    >
       {children}
-    </StyledRow>
+    </div>
   );
 };
 
-// function TableBody_({ data }) {
-//   if (!data?.length) return <Empty>No data to show at the moment.</Empty>;
-//   return data.map((info) => <CabinRow key={info.id} cabin={info} />);
-// }
-
 Table.Body = function ({ data, render }) {
-  if (!data?.length) return <Empty>No data to show at the moment.</Empty>;
-  return <StyledBody>{data?.map(render)}</StyledBody>;
+  if (!data?.length)
+    return (
+      <p className="m-[2.4rem] text-center text-[1.6rem] font-medium">
+        No data to show at the moment.
+      </p>
+    );
+  return <section className="my-[0.4rem]">{data?.map(render)}</section>;
 };
 
-Table.Footer = Footer;
+Table.Footer = function TableFooter({ children }) {
+  return (
+    <footer className="flex justify-center bg-grey-50 p-[1.2rem] empty:hidden">
+      {children}
+    </footer>
+  );
+};

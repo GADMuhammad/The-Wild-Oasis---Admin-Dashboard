@@ -1,14 +1,8 @@
-import styled from "styled-components";
-
-const Input = styled.input`
-  border: 1px solid var(--color-grey-300);
-  background-color: var(--color-grey-0);
-  border-radius: var(--border-radius-sm);
-  padding: 0.8rem 1.2rem;
-  box-shadow: var(--shadow-sm);
-  /* width: 31rem; */
-  width: auto;
-  /* margin: auto; */
-`;
-
-export default Input;
+export default function Input({ className = "", ...props }) {
+  return (
+    <input
+      className={`w-auto rounded-sm border border-grey-300 bg-grey-0 px-[1.2rem] py-[0.8rem] shadow-sm ${className}`}
+      {...props}
+    />
+  );
+}

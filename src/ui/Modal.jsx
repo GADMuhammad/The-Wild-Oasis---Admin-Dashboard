@@ -7,44 +7,6 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { HiXMark } from "react-icons/hi2";
-import styled from "styled-components";
-
-const Overlay = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: var(--color-backdrop);
-  backdrop-filter: blur(6px);
-  z-index: 1000;
-  transition: all 0.5s;
-  user-select: none;
-`;
-const StyledCloseButton = styled.button`
-  background: none;
-  border: none;
-  padding: 0.4rem;
-  border-radius: var(--border-radius-sm);
-  transform: translateX(0.8rem);
-  transition: all 0.2s;
-  position: absolute;
-  top: 1.2rem;
-  right: 1.9rem;
-
-  &:hover {
-    background-color: var(--color-grey-100);
-  }
-
-  & svg {
-    width: 2.4rem;
-    height: 2.4rem;
-    /* Sometimes we need both */
-    /* fill: var(--color-grey-500);
-    stroke: var(--color-grey-500); */
-    color: var(--color-grey-500);
-  }
-`;
 
 const ModalContext = createContext(undefined);
 function useModalContext() {
@@ -87,14 +49,20 @@ Modal.Window = function ModalWindow({ children, name }) {
   }
 
   return createPortal(
-    <Overlay onClick={handleOverlayClick}>
+    <div
+      onClick={handleOverlayClick}
+      className="fixed top-0 left-0 z-[1000] h-screen w-full bg-backdrop backdrop-blur-[6px] transition-all duration-500 select-none"
+    >
       <div className="fixed top-1/2 left-1/2 -translate-1/2 rounded-lg bg-white px-12 py-[1.8rem] shadow-2xl transition-all duration-500 ease-in-out">
-        <StyledCloseButton onClick={close}>
+        <button
+          onClick={close}
+          className="absolute top-[1.2rem] right-[1.9rem] translate-x-[0.8rem] rounded-sm border-none bg-none p-[0.4rem] transition-all duration-200 hover:bg-grey-100 [&>svg]:h-[2.4rem] [&>svg]:w-[2.4rem] [&>svg]:text-grey-500"
+        >
           <HiXMark />
-        </StyledCloseButton>
+        </button>
         {cloneElement(children, { onCloseModal: close })}
       </div>
-    </Overlay>,
+    </div>,
     document.querySelector("body"),
   );
 };

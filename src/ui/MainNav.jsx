@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import styled from "styled-components";
 import {
   HiOutlineCalendarDays,
   HiOutlineCog6Tooth,
@@ -8,54 +7,12 @@ import {
   HiOutlineArchiveBox,
 } from "react-icons/hi2";
 
-const StyledNavLink = styled(NavLink)`
-  &:link,
-  &:visited {
-    display: flex;
-    align-items: center;
-    gap: 1.2rem;
-
-    color: var(--color-grey-600);
-    font-size: 1.6rem;
-    font-weight: 500;
-    padding: 1.2rem 2.4rem;
-    transition: all 0.3s;
-    /* border: solid 1px var(--color-grey-300); */
-    border-radius: var(--radius-lg);
-  }
-
-  /* This works because react-router places the active class on the active NavLink */
-  &:hover,
-  &:active,
-  &.active:link,
-  &.active:visited {
-    color: var(--color-grey-800);
-  }
-
-  &:hover {
-    background-color: var(--color-grey-100);
-  }
-
-  &:active,
-  &.active:link,
-  &.active:visited {
-    background-color: var(--color-grey-200);
-  }
-
-  & svg {
-    width: 2.4rem;
-    height: 2.4rem;
-    color: var(--color-grey-400);
-    transition: all 0.3s;
-  }
-
-  &:hover > svg,
-  &:active > svg,
-  &.active:link svg,
-  &.active:visited svg {
-    color: var(--color-brand-600);
-  }
-`;
+const linkClassName = ({ isActive }) =>
+  `flex items-center gap-[1.2rem] rounded-lg px-[2.4rem] py-[1.2rem] text-[1.6rem] font-medium transition-all duration-300 [&>svg]:h-[2.4rem] [&>svg]:w-[2.4rem] [&>svg]:transition-all [&>svg]:duration-300 hover:bg-grey-100 hover:text-grey-800 hover:[&>svg]:text-brand-600 ${
+    isActive
+      ? "bg-grey-200 text-grey-800 [&>svg]:text-brand-600"
+      : "text-grey-600 [&>svg]:text-grey-400"
+  }`;
 
 const links = [
   { label: "Home", link: "/dashboard", icon: <HiOutlineHome /> },
@@ -71,10 +28,10 @@ export default function MainNav() {
       <ul className="flex flex-col gap-[0.8rem]">
         {links.map(({ label, link, icon }) => (
           <li key={link}>
-            <StyledNavLink to={link}>
+            <NavLink to={link} className={linkClassName}>
               {icon}
               <span>{label}</span>
-            </StyledNavLink>
+            </NavLink>
           </li>
         ))}
       </ul>

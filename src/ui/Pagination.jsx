@@ -1,64 +1,9 @@
 import { HiChevronDoubleLeft, HiChevronDoubleRight } from "react-icons/hi2";
 import { useSearchParams } from "react-router-dom";
-import styled from "styled-components";
 import { PAGE_SIZE } from "../utils/constants";
 
-const StyledPagination = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const P = styled.p`
-  font-size: 1.6rem;
-  margin-left: 0.8rem;
-  /* margin: auto; */
-
-  & span {
-    font-weight: 600;
-  }
-`;
-
-const Buttons = styled.div`
-  display: flex;
-  gap: 0.6rem;
-`;
-
-const PaginationButton = styled.button`
-  background-color: ${(props) =>
-    props.active ? " var(--color-brand-600)" : "var(--color-grey-50)"};
-  color: ${(props) => (props.active ? " var(--color-brand-50)" : "inherit")};
-  border: none;
-  border-radius: var(--border-radius-sm);
-  font-weight: 500;
-  font-size: 1.4rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  padding: 0.6rem 1.2rem;
-  transition: all 0.3s;
-
-  &:has(span:last-child) {
-    padding-left: 0.4rem;
-  }
-
-  &:has(span:first-child) {
-    padding-right: 0.4rem;
-  }
-
-  & svg {
-    height: 1.8rem;
-    width: 1.8rem;
-  }
-
-  &:hover:not(:disabled) {
-    background-color: var(--color-brand-600);
-    color: var(--color-brand-50);
-  }
-`;
+const buttonBase =
+  "flex items-center justify-center gap-[0.4rem] rounded-sm px-[1.2rem] py-[0.6rem] text-[1.4rem] font-medium transition-all duration-300 has-[span:last-child]:pl-[0.4rem] has-[span:first-child]:pr-[0.4rem] [&>svg]:h-[1.8rem] [&>svg]:w-[1.8rem] hover:not-disabled:bg-brand-600 hover:not-disabled:text-brand-50";
 
 export default function Pagination({ elementsCount }) {
   if (elementsCount <= PAGE_SIZE) return null;
@@ -81,8 +26,8 @@ export default function Pagination({ elementsCount }) {
     changePageParams(+currentPage - 1);
   }
   return (
-    <StyledPagination>
-      <P>
+    <div className="flex w-full items-center justify-between">
+      <p className="ml-[0.8rem] text-[1.6rem] [&>span]:font-semibold">
         Showing <span>{(currentPage - 1) * PAGE_SIZE + 1}</span> to{" "}
         <span>
           {+currentPage === pagesCount
@@ -90,25 +35,27 @@ export default function Pagination({ elementsCount }) {
             : currentPage * PAGE_SIZE}
         </span>{" "}
         of <span>{elementsCount}</span> results
-      </P>
+      </p>
 
-      <Buttons>
-        <PaginationButton
+      <div className="flex gap-[0.6rem]">
+        <button
           onClick={goToPreviousPage}
           disabled={+currentPage === 1}
+          className={`${buttonBase} bg-grey-50`}
         >
           <HiChevronDoubleLeft />
           <span>Previous</span>
-        </PaginationButton>
+        </button>
 
-        <PaginationButton
+        <button
           onClick={goToNextPage}
           disabled={+currentPage === +pagesCount}
+          className={`${buttonBase} bg-grey-50`}
         >
           <span>Next</span>
           <HiChevronDoubleRight />
-        </PaginationButton>
-      </Buttons>
-    </StyledPagination>
+        </button>
+      </div>
+    </div>
   );
 }

@@ -1,28 +1,8 @@
-import styled from "styled-components";
 import Tag from "../../ui/Tag";
 import { Flag } from "../../ui/Flag";
 import Button from "../../ui/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CheckoutButton from "./CheckoutButton";
-
-const StyledTodayItem = styled.li`
-  display: grid;
-  grid-template-columns: 9rem 2rem 1fr 7rem 9rem;
-  gap: 1.2rem;
-  align-items: center;
-
-  font-size: 1.4rem;
-  padding: 0.8rem 0;
-  border-bottom: 1px solid var(--color-grey-100);
-
-  &:first-child {
-    border-top: 1px solid var(--color-grey-100);
-  }
-`;
-
-const Guest = styled.div`
-  font-weight: 500;
-`;
 
 export default function TodayItem({ activity }) {
   const { id, status, guests, numNights } = activity; // remember this activity is a booking.
@@ -30,19 +10,19 @@ export default function TodayItem({ activity }) {
     guests;
 
   return (
-    <StyledTodayItem>
+    <li className="grid grid-cols-[9rem_2rem_1fr_7rem_9rem] items-center gap-[1.2rem] border-b border-grey-100 py-[0.8rem] text-[1.4rem] first:border-t first:border-grey-100">
       {status === "unconfirmed" ? (
         <Tag type="green">Arriving</Tag>
       ) : (
         <Tag type="blue">Departing</Tag>
       )}
       <Flag src={countryFlag} alt={`Flag of ${nationality}`} />
-      <Guest>
+      <div className="font-medium">
         <strong>
           {firstName} {lastName}
         </strong>{" "}
         {childrenNumber ? `with ${childrenNumber + 1} companions` : ""}
-      </Guest>
+      </div>
       <div>{numNights} nights</div>
 
       {status === "unconfirmed" && (
@@ -57,6 +37,6 @@ export default function TodayItem({ activity }) {
       )}
 
       {status === "checked-in" && <CheckoutButton bookingId={id} />}
-    </StyledTodayItem>
+    </li>
   );
 }

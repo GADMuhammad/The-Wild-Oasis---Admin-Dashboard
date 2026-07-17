@@ -1,21 +1,10 @@
-import styled from "styled-components";
-
-const ButtonIcon = styled.button`
-  background: none;
-  border: none;
-  padding: 0.6rem;
-  border-radius: 9px;
-  transition: all 0.2s;
-
-  &:hover {
-    background-color: var(--color-grey-100);
-  }
-
-  & svg {
-    width: 2.2rem;
-    height: 2.2rem;
-    color: var(--color-brand-600);
-  }
-`;
-
-export default ButtonIcon;
+export default function ButtonIcon({ children, className = "", ...props }) {
+  return (
+    <button
+      className={`rounded-lg border-none bg-none p-[0.6rem] transition-all duration-200 hover:bg-grey-100 [&>svg]:h-[2.2rem] [&>svg]:w-[2.2rem] [&>svg]:text-brand-600 ${className}`}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+}
