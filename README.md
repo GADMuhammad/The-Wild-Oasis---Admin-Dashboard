@@ -1,16 +1,64 @@
-# React + Vite
+# The Wild Oasis — Admin Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An internal admin dashboard for a cabin/hotel booking business. Staff use it to manage cabins, bookings, guest check-in/check-out, and hotel-wide settings, with a live overview of recent activity and revenue.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Dashboard** — bookings, revenue, check-ins and occupancy-rate stat tiles for a selectable date range (last 7/30/90 days), a sales area chart (total vs. extras revenue), a stay-duration breakdown pie chart, and a "Today" panel listing arrivals/departures with one-click check-in/check-out.
+- **Bookings** — sortable, filterable (by status), paginated table of all bookings; per-row menu to view details, check in, check out, or delete; a full booking detail page.
+- **Check-in / Check-out** — dedicated check-in flow with breakfast add-on and payment confirmation; one-click check-out from the bookings table or dashboard.
+- **Cabins** — CRUD for cabins (name, capacity, price, discount, description, air conditioning, photo upload to Supabase Storage), with duplicate and sort/filter support.
+- **Users** — create new staff accounts (sign-up, admin-only).
+- **Account** — update your own name/avatar and password.
+- **Settings** — hotel-wide booking rules (min/max nights, max guests, breakfast price).
+- **Dark mode** — persisted (localStorage) light/dark theme toggle, following the OS preference by default.
+- **Auth** — Supabase-backed authentication with protected routes; unauthenticated users are redirected to `/login`.
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- [React 19](https://react.dev/) + [Vite](https://vitejs.dev/)
+- [React Router 7](https://reactrouter.com/) for routing
+- [TanStack Query](https://tanstack.com/query) for server-state (fetching, caching, mutations)
+- [Supabase](https://supabase.com/) for the database, auth, and file storage
+- [Tailwind CSS 4](https://tailwindcss.com/) for styling
+- [React Hook Form](https://react-hook-form.com/) for form handling/validation
+- [Recharts](https://recharts.org/) for the dashboard charts
+- [date-fns](https://date-fns.org/) for date logic
+- [react-hot-toast](https://react-hot-toast.com/) for notifications
+- [react-error-boundary](https://github.com/bvaughn/react-error-boundary) for top-level error handling
 
-## Expanding the ESLint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+npm run dev
+```
+
+The app runs against a live Supabase project (configured in `src/services/supabase.js`).
+
+### Available Scripts
+
+| Command           | Description                        |
+| ------------------ | ----------------------------------- |
+| `npm run dev`       | Start the Vite dev server           |
+| `npm run build`     | Build for production                |
+| `npm run preview`   | Preview the production build        |
+| `npm run lint`      | Run ESLint                          |
+
+## Project Structure
+
+```
+src/
+├── pages/          Route-level page components
+├── features/        Feature-scoped components + React Query hooks,
+│                    grouped by domain (dashboard, bookings, cabins,
+│                    check-in-out, authentication, settings)
+├── ui/               Reusable, presentational UI components
+├── services/         Supabase query/mutation wrappers (one file per table)
+├── context/          React context providers (dark mode)
+├── hooks/            Generic reusable hooks
+├── data/             Seed data + a dev-only Supabase uploader utility
+└── utils/            Formatting helpers and constants
+```
+
+Styling is done entirely with Tailwind CSS utility classes, driven by a custom theme (`src/index.css`) that defines the color palette, spacing, radii, and shadows used across the app — including a dark-mode variant applied via a `.dark` class on `<html>`.
