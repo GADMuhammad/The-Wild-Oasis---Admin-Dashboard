@@ -53,7 +53,7 @@ Modal.Window = function ModalWindow({ children, name }) {
       onClick={handleOverlayClick}
       className="fixed top-0 left-0 z-[1000] h-screen w-full bg-backdrop backdrop-blur-[6px] transition-all duration-500 select-none"
     >
-      <div className="fixed top-1/2 left-1/2 -translate-1/2 rounded-lg bg-white px-12 py-[1.8rem] shadow-2xl transition-all duration-500 ease-in-out">
+      <div className="fixed top-1/2 left-1/2 -translate-1/2 rounded-lg bg-grey-0 px-12 py-[1.8rem] shadow-2xl transition-all duration-500 ease-in-out">
         <button
           onClick={close}
           className="absolute top-[1.2rem] right-[1.9rem] translate-x-[0.8rem] rounded-sm border-none bg-none p-[0.4rem] transition-all duration-200 hover:bg-grey-100 [&>svg]:h-[2.4rem] [&>svg]:w-[2.4rem] [&>svg]:text-grey-500"

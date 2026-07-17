@@ -1,5 +1,5 @@
 const types = {
-  regular: "rounded-md border border-[#f3f4f6] bg-white px-[4rem] py-[2.4rem]",
+  regular: "rounded-md border border-grey-100 bg-grey-0 px-[4rem] py-[2.4rem]",
   modal: "w-[80rem]",
 };
 
