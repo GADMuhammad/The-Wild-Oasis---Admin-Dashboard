@@ -18,7 +18,7 @@ function CreateCabinForm({ cabinToEdit, onCloseModal }) {
       >
         <CabinFormDetails isToEditSession={isToEditSession} />
 
-        <div className="grid grid-cols-[24rem_1fr_1.2fr] items-center gap-[2.4rem] border-b border-gray-100 px-0 py-[1.2rem] first:pt-0 last:border-b-0 last:pb-0 has-[button]:flex has-[button]:justify-end has-[button]:gap-[1.2rem]">
+        <div className="grid grid-cols-[24rem_1fr_1.2fr] items-center gap-[2.4rem] border-b border-grey-100 px-0 py-[1.2rem] first:pt-0 last:border-b-0 last:pb-0 has-[button]:flex has-[button]:justify-end has-[button]:gap-[1.2rem]">
           {/* type is an HTML attribute! */}
           <Button
             type="reset"

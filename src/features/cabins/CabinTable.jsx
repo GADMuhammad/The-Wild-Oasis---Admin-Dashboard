@@ -45,7 +45,7 @@ export default function CabinTable() {
       <Table columns="0.6fr 0.8fr 1.6fr 0.6fr 0.6fr 0.6fr 0.6fr">
         <Table.Header
           role="row"
-          className="grid-cols-main-layout bg-grey-50 font-new grid gap-x-[2.4rem] border-gray-50 px-16 py-[1.4rem] text-center tracking-[0.4px] text-gray-600 uppercase"
+          className="grid-cols-main-layout bg-grey-50 font-new border-grey-50 text-grey-600 grid gap-x-[2.4rem] px-16 py-[1.4rem] text-center tracking-[0.4px] uppercase"
         >
           {headings.map((heading) => (
             <div key={heading}>{heading}</div>
