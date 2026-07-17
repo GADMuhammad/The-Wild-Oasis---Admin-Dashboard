@@ -4,7 +4,7 @@ import { useLocalStorageState } from "../hooks/useLocalStorageState";
 const DarkModeContext = createContext();
 function useDarkModeContext() {
   const context = useContext(DarkModeContext);
-  if (!context)
+  if (!context) 
     throw new Error("Context was used outside of DarkMode Provider.");
   return context;
 }
@@ -31,4 +31,5 @@ function DarkModeProvider({ children }) {
   );
 }
 
-export { DarkModeProvider, useDarkModeContext };
+
+export { DarkModeProvider,  useDarkModeContext };

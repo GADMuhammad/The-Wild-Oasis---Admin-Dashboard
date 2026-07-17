@@ -19,9 +19,10 @@ import AppLayout from "./ui/AppLayout";
 import CheckIn from "./pages/CheckIn";
 import ProtectedRoute from "./ui/ProtectedRoute";
 import { DarkModeProvider } from "./context/DarkModeContext";
+import { Uploader } from "./data/Uploader";
 
 const router = createBrowserRouter([
-  { index:true, element: <Navigate replace to="/dashboard" /> },
+  { index: true, element: <Navigate replace to="/dashboard" /> },
   {
     path: "/",
     element: (
