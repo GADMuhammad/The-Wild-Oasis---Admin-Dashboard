@@ -10,6 +10,7 @@ function useDarkModeContext() {
 }
 
 function DarkModeProvider({ children }) {
+  // to match the system theme
   const [isDarkMode, setIsDarkMode] = useLocalStorageState(
     window.matchMedia("(prefers-color-scheme: dark)").matches,
     "darkMode",
