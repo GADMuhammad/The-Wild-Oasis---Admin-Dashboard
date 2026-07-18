@@ -7,8 +7,7 @@ const sizes = {
 
 const variations = {
   primary: "bg-brand-600 text-brand-50 hover:bg-brand-700",
-  secondary:
-    "border border-grey-200 bg-grey-0 text-grey-600 hover:bg-grey-50",
+  secondary: "border border-grey-200 bg-grey-0 text-grey-600 hover:bg-grey-50",
   danger: "bg-red-700 text-red-100 hover:bg-red-800",
 };
 
@@ -21,7 +20,7 @@ export default function Button({
 }) {
   return (
     <Component
-      className={`rounded-sm shadow-sm disabled:cursor-not-allowed disabled:bg-grey-300 ${sizes[size]} ${variations[variation]} ${className}`}
+      className={`disabled:bg-grey-300 rounded-sm shadow-sm disabled:cursor-not-allowed ${sizes[size]} ${variations[variation]} ${className}`}
       {...props}
     />
   );
