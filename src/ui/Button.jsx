@@ -2,7 +2,7 @@ const sizes = {
   small:
     "px-[0.8rem] py-[0.4rem] text-[1.2rem] font-semibold uppercase text-center",
   medium: "px-[1.6rem] py-[1.2rem] text-[1.4rem] font-medium",
-  large: "w-[48rem] px-[2.4rem] py-[1.2rem] text-[1.6rem] font-medium",
+  large: "w-full px-[2.4rem] py-[1.2rem] text-[1.6rem] font-medium",
 };
 
 const variations = {
