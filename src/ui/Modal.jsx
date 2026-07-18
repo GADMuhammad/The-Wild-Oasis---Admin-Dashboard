@@ -54,7 +54,7 @@ Modal.Window = function ModalWindow({ children, name }) {
       {isOpen && (
         <motion.div
           onClick={handleOverlayClick}
-          className="bg-backdrop fixed top-0 left-0 z-1000 flex h-screen w-full items-center justify-center p-[2.4rem] backdrop-blur-[6px] select-none"
+          className="bg-backdrop fixed top-0 left-0 z-1000 flex h-screen w-full items-center justify-center p-[2.4rem] backdrop-blur-[6px]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
