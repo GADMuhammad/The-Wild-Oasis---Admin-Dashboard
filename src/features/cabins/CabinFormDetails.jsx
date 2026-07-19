@@ -1,8 +1,14 @@
+import { motion } from "motion/react";
 import { useFormContext } from "react-hook-form";
 import formDetails from "./cabinFormDetailsArray";
 import Textarea from "../../ui/Textarea";
 import Input from "../../ui/Input";
 import AirConditioningCheckBox from "../../ui/airConditioningCheckBox";
+
+export const formRowVariants = {
+  hidden: { opacity: 0, y: 12 },
+  visible: { opacity: 1, y: 0 },
+};
 
 export default function CabinFormDetails({ isToEditSession }) {
   const { register, getValues, formState } = useFormContext();
@@ -34,7 +40,8 @@ export default function CabinFormDetails({ isToEditSession }) {
     }
 
     return (
-      <div
+      <motion.div
+        variants={formRowVariants}
         className="border-grey-100 grid grid-cols-[24rem_1fr_1.2fr] items-center gap-[2.4rem] border-b px-0 py-[1.2rem] first:pt-0 last:border-b-0 last:pb-0 has-[button]:flex has-[button]:justify-end has-[button]:gap-[1.2rem]"
         key={info.id}
       >
@@ -54,7 +61,7 @@ export default function CabinFormDetails({ isToEditSession }) {
         {errorMessage && (
           <span className="text-[1.4rem] text-red-700">{errorMessage}</span>
         )}
-      </div>
+      </motion.div>
     );
   });
 }
