@@ -71,6 +71,7 @@ Modal.Window = function ModalWindow({ children, name }) {
               onClick={close}
               whileHover={{ scale: 1.1, rotate: 90 }}
               whileTap={{ scale: 0.9 }}
+              tabIndex={-1}
               className="hover:bg-grey-100 [&>svg]:text-grey-500 absolute top-[1.2rem] right-[1.6rem] z-10 rounded-sm border-none bg-none p-[0.4rem] [&>svg]:h-[2.4rem] [&>svg]:w-[2.4rem]"
             >
               <HiXMark />
