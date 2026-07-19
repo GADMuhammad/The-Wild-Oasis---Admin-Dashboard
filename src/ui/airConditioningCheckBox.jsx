@@ -4,9 +4,9 @@ import styled from "styled-components";
 const Checkbox = forwardRef(function Checkbox({ className, ...props }, ref) {
   return (
     <StyledWrapper className={className}>
-      <label className="container">
+      <label className="ac-container">
         <input type="checkbox" ref={ref} {...props} />
-        <div className="checkmark">
+        <div className="ac-checkmark">
           <svg
             version="1.1"
             id="Capa_1"
@@ -41,7 +41,7 @@ const Checkbox = forwardRef(function Checkbox({ className, ...props }, ref) {
 
 const StyledWrapper = styled.div`
   /* Hide the default checkbox */
-  .container input {
+  .ac-container input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -49,7 +49,7 @@ const StyledWrapper = styled.div`
     width: 0;
   }
 
-  .container {
+  .ac-container {
     display: inline-flex;
     position: relative;
     cursor: pointer;
@@ -61,7 +61,7 @@ const StyledWrapper = styled.div`
   }
 
   /* Create a custom checkbox */
-  .checkmark {
+  .ac-checkmark {
     position: relative;
     height: 44px;
     width: 44px;
@@ -73,7 +73,7 @@ const StyledWrapper = styled.div`
       -4px -4px 6px #3c3c3c;
   }
 
-  .checkmark svg {
+  .ac-checkmark svg {
     width: 28px;
     height: 28px;
     margin-top: 7px;
@@ -82,24 +82,24 @@ const StyledWrapper = styled.div`
     transition: 0.2s;
   }
 
-  .checkmark:active {
+  .ac-checkmark:active {
     box-shadow:
       2px 2px 3px #000000,
       -2px -2px 3px #3c3c3c;
   }
 
   /* When the checkbox is checked */
-  .container input:checked ~ .checkmark {
+  .ac-container input:checked ~ .ac-checkmark {
     box-shadow:
       4px 4px 6px #000000,
       -4px -4px 6px #3c3c3c;
   }
 
-  .container input:checked ~ .checkmark svg {
+  .ac-container input:checked ~ .ac-checkmark svg {
     fill: #00ff7b;
   }
 
-  .container input:checked ~ .checkmark:active {
+  .ac-container input:checked ~ .ac-checkmark:active {
     box-shadow:
       2px 2px 3px #000000,
       -2px -2px 3px #3c3c3c;
