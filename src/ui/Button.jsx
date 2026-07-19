@@ -1,3 +1,5 @@
+import { motion } from "motion/react";
+
 const sizes = {
   small:
     "px-[0.8rem] py-[0.4rem] text-[1.2rem] font-semibold uppercase text-center",
@@ -14,10 +16,11 @@ const variations = {
 export default function Button({
   size = "medium",
   variation = "primary",
-  as: Component = "button",
+  as = "button",
   className = "",
   ...props
 }) {
+  const Component = typeof as === "string" ? (motion[as] ?? as) : as;
   return (
     <Component
       className={`disabled:bg-grey-300 rounded-sm shadow-sm disabled:cursor-not-allowed ${sizes[size]} ${variations[variation]} ${className}`}
