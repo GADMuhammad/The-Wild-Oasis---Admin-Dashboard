@@ -35,7 +35,7 @@ export default function CabinFormDetails({ isToEditSession }) {
 
     return (
       <div
-        className="grid grid-cols-[24rem_1fr_1.2fr] items-center gap-[2.4rem] border-b border-grey-100 px-0 py-[1.2rem] first:pt-0 last:border-b-0 last:pb-0 has-[button]:flex has-[button]:justify-end has-[button]:gap-[1.2rem]"
+        className="border-grey-100 grid grid-cols-[24rem_1fr_1.2fr] items-center gap-[2.4rem] border-b px-0 py-[1.2rem] first:pt-0 last:border-b-0 last:pb-0 has-[button]:flex has-[button]:justify-end has-[button]:gap-[1.2rem]"
         key={info.id}
       >
         <label className="font-medium" htmlFor={info.id}>
