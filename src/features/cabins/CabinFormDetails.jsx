@@ -2,13 +2,19 @@ import { useFormContext } from "react-hook-form";
 import formDetails from "./cabinFormDetailsArray";
 import Textarea from "../../ui/Textarea";
 import Input from "../../ui/Input";
+import AirConditioningCheckBox from "../../ui/airConditioningCheckBox";
 
 export default function CabinFormDetails({ isToEditSession }) {
   const { register, getValues, formState } = useFormContext();
   const { errors } = formState;
 
   return formDetails.map(function ({ label, textarea, ...info }) {
-    const InputComponent = textarea ? Textarea : Input,
+    const InputComponent =
+        info.type === "checkbox"
+          ? AirConditioningCheckBox
+          : textarea
+            ? Textarea
+            : Input,
       errorMessage = errors?.[info.id]?.message;
 
     function validate(value) {
