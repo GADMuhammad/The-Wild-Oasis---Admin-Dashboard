@@ -7,6 +7,13 @@ import Input from "../../ui/Input";
 import useUser from "./useUser";
 import useUpdateUser from "./useUpdateUser";
 
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.1 },
+  },
+};
+
 function UpdateUserDataForm() {
   // We don't need the loading state, and can immediately use the user data, because we know that it has already been loaded at this point
   const {
@@ -40,7 +47,7 @@ function UpdateUserDataForm() {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} variants={containerVariants}>
       <FormRow label="Email address">
         <Input disabled={isUpdating} value={email} disabled />
       </FormRow>
