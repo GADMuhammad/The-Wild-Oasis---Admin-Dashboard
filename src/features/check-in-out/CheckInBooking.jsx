@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import BookingDataBox from "../bookings/BookingDataBox";
 import Row from "../../ui/Row";
 import Heading from "../../ui/Heading";
@@ -12,6 +13,20 @@ import { formatCurrency } from "../../utils/helpers";
 import useCheckIn from "./useCheckIn";
 import useSettings from "../settings/useSettings";
 import Spinner from "../../ui/Spinner";
+
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.12 },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0 },
+};
+
+const springTransition = { type: "spring", stiffness: 260, damping: 24 };
 
 function CheckInBooking() {
   const moveBack = useMoveBack();
@@ -62,15 +77,26 @@ function CheckInBooking() {
   }
 
   return (
-    <>
-      <Row type="horizontal">
-        <Heading as="h1">Check in booking #{bookingId}</Heading>
-        <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
-      </Row>
+    <motion.div
+      className="flex flex-col gap-[3.2rem]"
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+    >
+      <motion.div variants={itemVariants} transition={springTransition}>
+        <Row type="horizontal">
+          <Heading as="h1">Check in booking #{bookingId}</Heading>
+          <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
+        </Row>
+      </motion.div>
 
       <BookingDataBox booking={booking} />
       {!hasBreakfast && (
-        <div className="rounded-md border border-grey-100 bg-grey-0 px-[4rem] py-[2.4rem]">
+        <motion.div
+          variants={itemVariants}
+          transition={springTransition}
+          className="rounded-md border border-grey-100 bg-grey-0 px-[4rem] py-[2.4rem]"
+        >
           <Checkbox
             id="breakfast"
             checked={isBreakfastAdded}
@@ -79,10 +105,14 @@ function CheckInBooking() {
             {firstName} {lastName} Wants to add a breakfast for{" "}
             {formatCurrency(optionalBreakfastPrice)}?
           </Checkbox>
-        </div>
+        </motion.div>
       )}
 
-      <div className="rounded-md border border-grey-100 bg-grey-0 px-[4rem] py-[2.4rem]">
+      <motion.div
+        variants={itemVariants}
+        transition={springTransition}
+        className="rounded-md border border-grey-100 bg-grey-0 px-[4rem] py-[2.4rem]"
+      >
         <Checkbox
           id={bookingId}
           checked={confirmPaid}
@@ -94,17 +124,22 @@ function CheckInBooking() {
             ? `${formatCurrency(totalPrice + optionalBreakfastPrice)} (${formatCurrency(totalPrice)} + ${formatCurrency(optionalBreakfastPrice)})`
             : formatCurrency(totalPrice)}
         </Checkbox>
-      </div>
+      </motion.div>
 
-      <ButtonGroup>
-        <Button onClick={handleCheckIn} disabled={!confirmPaid || isCheckingIn}>
-          Check in booking #{bookingId}
-        </Button>
-        <Button variation="secondary" onClick={moveBack}>
-          Back
-        </Button>
-      </ButtonGroup>
-    </>
+      <motion.div variants={itemVariants} transition={springTransition}>
+        <ButtonGroup>
+          <Button
+            onClick={handleCheckIn}
+            disabled={!confirmPaid || isCheckingIn}
+          >
+            Check in booking #{bookingId}
+          </Button>
+          <Button variation="secondary" onClick={moveBack}>
+            Back
+          </Button>
+        </ButtonGroup>
+      </motion.div>
+    </motion.div>
   );
 }
 
