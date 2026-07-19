@@ -5,6 +5,13 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import useSignUp from "./useSignUp";
 
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.1 },
+  },
+};
+
 export default function SignupForm() {
   const { register, formState, getValues, handleSubmit, reset } = useForm();
   const { signUp, isPending } = useSignUp();
@@ -14,7 +21,12 @@ export default function SignupForm() {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form
+      onSubmit={handleSubmit(onSubmit)}
+      variants={containerVariants}
+      initial="hidden"
+      animate="show"
+    >
       <FormRow label="Full name" error={formState.errors.fullName?.message}>
         <Input
           type="text"
