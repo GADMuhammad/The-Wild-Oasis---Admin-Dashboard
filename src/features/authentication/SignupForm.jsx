@@ -21,12 +21,7 @@ export default function SignupForm() {
   }
 
   return (
-    <Form
-      onSubmit={handleSubmit(onSubmit)}
-      variants={containerVariants}
-      initial="hidden"
-      animate="show"
-    >
+    <Form onSubmit={handleSubmit(onSubmit)} variants={containerVariants}>
       <FormRow label="Full name" error={formState.errors.fullName?.message}>
         <Input
           type="text"
