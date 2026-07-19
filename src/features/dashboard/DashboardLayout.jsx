@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import useRecentBookings from "./useRecentBookings";
 import Spinner from "../../ui/Spinner";
 import useRecentDays from "./useRecentDays";
@@ -13,6 +14,13 @@ import useCabins from "../../hooks/useCabins";
 import SalesChart from "./SalesChart";
 import DurationChart from "./DurationChart";
 import TodayActivity from "../check-in-out/TodayActivity";
+
+const gridVariants = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.1 },
+  },
+};
 
 export default function DashboardLayout() {
   const { bookings, isPending: isLoadingBookings } = useRecentBookings();
@@ -43,7 +51,12 @@ export default function DashboardLayout() {
 
   if (isLoadingBookings || isLoadingDays || isLoadingCabins) return <Spinner />;
   return (
-    <div className="grid grid-cols-4 grid-rows-[auto_34rem_auto] gap-[2.4rem]">
+    <motion.div
+      className="grid grid-cols-4 grid-rows-[auto_34rem_auto] gap-[2.4rem]"
+      variants={gridVariants}
+      initial="hidden"
+      animate="show"
+    >
       <Stat
         icon={<HiOutlineBriefcase />}
         title="Bookings"
@@ -71,6 +84,6 @@ export default function DashboardLayout() {
       <TodayActivity />
       <DurationChart confirmedStays={confirmedStays} />
       <SalesChart bookings={bookings} numberOfDays={numberOfDays} />
-    </div>
+    </motion.div>
   );
 }
