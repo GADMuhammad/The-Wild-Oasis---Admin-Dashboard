@@ -5,6 +5,13 @@ import Spinner from "../../ui/Spinner";
 import useSettings from "./useSettings";
 import { useUpdateSettings } from "./useUpdateSettings";
 
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: { staggerChildren: 0.08 },
+  },
+};
+
 function UpdateSettingsForm() {
   const {
     settings: {
@@ -26,7 +33,7 @@ function UpdateSettingsForm() {
 
   if (isPending) return <Spinner />;
   return (
-    <Form>
+    <Form variants={containerVariants}>
       <FormRow label="Minimum nights/booking">
         <Input
           type="number"
