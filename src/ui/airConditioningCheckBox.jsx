@@ -40,6 +40,10 @@ const Checkbox = forwardRef(function Checkbox({ className, ...props }, ref) {
 });
 
 const StyledWrapper = styled.div`
+  display: inline-flex;
+  align-self: center;
+  justify-self: center;
+
   /* Hide the default checkbox */
   .ac-container input {
     position: absolute;
