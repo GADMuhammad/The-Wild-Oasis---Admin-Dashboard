@@ -60,6 +60,9 @@ const StyledWrapper = styled.div`
   /* Create a custom checkbox */
   .ac-checkmark {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     height: 44px;
     width: 44px;
     border-radius: 10em;
@@ -72,8 +75,6 @@ const StyledWrapper = styled.div`
   .ac-checkmark svg {
     width: 26px;
     height: 26px;
-    margin-top: 8px;
-    margin-left: 9px;
     fill: var(--color-grey-400);
     transition: 0.2s;
   }
