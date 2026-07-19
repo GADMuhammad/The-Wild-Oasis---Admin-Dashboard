@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { motion } from "motion/react";
 import { formatCurrency } from "../../utils/helpers";
 import CreateCabinForm from "./CreateCabinForm";
 import useDeleteCabin from "./useDeleteCabin";
@@ -21,6 +23,7 @@ export default function CabinRow({ cabin }) {
     regularPrice,
   } = cabinInfo;
 
+  const [imageLoaded, setImageLoaded] = useState(false);
   const { isDeleting, deleteCabin } = useDeleteCabin();
   const { createCabinFn, isCreating } = useCreateCabin(cabinInfo);
 
@@ -30,11 +33,20 @@ export default function CabinRow({ cabin }) {
 
   return (
     <Table.Row role="row">
-      <img
-        src={imgURL}
-        className="block aspect-[3/2] w-[6.4rem] origin-center scale-150 translate-x-[-7px] object-cover object-center transition-transform duration-300 ease-out hover:scale-[1.65]"
-      />
-      <div className="font-sono text-[1.6rem] font-semibold text-grey-600">
+      <div className="relative aspect-3/2 w-[6.4rem]">
+        {!imageLoaded && (
+          <div className="bg-grey-100 absolute inset-0 origin-center translate-x-1.75 scale-150 animate-pulse" />
+        )}
+        <motion.img
+          src={imgURL}
+          onLoad={() => setImageLoaded(true)}
+          initial={false}
+          animate={imageLoaded ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="block aspect-3/2 w-[6.4rem] origin-center translate-x-1.75 scale-150 object-cover object-center"
+        />
+      </div>
+      <div className="font-sono text-grey-600 text-[1.6rem] font-semibold">
         {name}
       </div>
       <p>{`for ${maxCapacity} guests, ${numberOfRooms} rooms${airConditioning ? " with airConditioning." : "."}`}</p>
