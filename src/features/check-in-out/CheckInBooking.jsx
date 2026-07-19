@@ -95,7 +95,7 @@ function CheckInBooking() {
         <motion.div
           variants={itemVariants}
           transition={springTransition}
-          className="rounded-md border border-grey-100 bg-grey-0 px-[4rem] py-[2.4rem]"
+          className="border-grey-100 bg-grey-0 rounded-md border px-16 py-[2.4rem]"
         >
           <Checkbox
             id="breakfast"
@@ -111,7 +111,7 @@ function CheckInBooking() {
       <motion.div
         variants={itemVariants}
         transition={springTransition}
-        className="rounded-md border border-grey-100 bg-grey-0 px-[4rem] py-[2.4rem]"
+        className="border-grey-100 bg-grey-0 rounded-md border px-16 py-[2.4rem]"
       >
         <Checkbox
           id={bookingId}

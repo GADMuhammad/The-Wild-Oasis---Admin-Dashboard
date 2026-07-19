@@ -52,7 +52,7 @@ function BookingDataBox({ booking }) {
 
   return (
     <motion.section
-      className="overflow-hidden rounded-md border border-grey-100 bg-grey-0"
+      className="border-grey-100 bg-grey-0 overflow-hidden rounded-md border"
       variants={containerVariants}
       initial="hidden"
       animate="show"
@@ -60,7 +60,7 @@ function BookingDataBox({ booking }) {
       <motion.header
         variants={itemVariants}
         transition={springTransition}
-        className="flex items-center justify-between bg-brand-500 px-[4rem] py-[2rem] text-[1.8rem] font-medium text-[#e0e7ff] [&_span]:ml-[4px] [&_span]:font-sono [&_span]:text-[2rem] [&>div:first-child]:flex [&>div:first-child]:items-center [&>div:first-child]:gap-[1.6rem] [&>div:first-child]:text-[1.8rem] [&>div:first-child]:font-semibold [&_svg]:h-[3.2rem] [&_svg]:w-[3.2rem]"
+        className="bg-brand-500 [&_span]:font-sono flex items-center justify-between px-16 py-8 text-[1.8rem] font-medium text-[#e0e7ff] [&_span]:ml-1 [&_span]:text-[2rem] [&_svg]:h-[3.2rem] [&_svg]:w-[3.2rem] [&>div:first-child]:flex [&>div:first-child]:items-center [&>div:first-child]:gap-[1.6rem] [&>div:first-child]:text-[1.8rem] [&>div:first-child]:font-semibold"
       >
         <div>
           <HiOutlineHomeModern />
@@ -79,13 +79,13 @@ function BookingDataBox({ booking }) {
       </motion.header>
 
       <motion.section
-        className="px-[4rem] pt-[3.2rem] pb-[1.2rem]"
+        className="px-16 pt-[3.2rem] pb-[1.2rem]"
         variants={containerVariants}
       >
         <motion.div
           variants={itemVariants}
           transition={springTransition}
-          className="mb-[1.6rem] flex items-center gap-[1.2rem] text-grey-500 [&>p:first-of-type]:font-medium [&>p:first-of-type]:text-grey-700"
+          className="text-grey-500 [&>p:first-of-type]:text-grey-700 mb-[1.6rem] flex items-center gap-[1.2rem] [&>p:first-of-type]:font-medium"
         >
           {countryFlag && (
             <Flag src={countryFlag} alt={`Flag of ${nationality}`} />
@@ -137,7 +137,7 @@ function BookingDataBox({ booking }) {
       <motion.footer
         variants={itemVariants}
         transition={springTransition}
-        className="px-[4rem] py-[1.6rem] text-right text-[1.2rem] text-grey-500"
+        className="text-grey-500 px-16 py-[1.6rem] text-right text-[1.2rem]"
       >
         <p>Booked {format(new Date(created_at), "EEE, MMM dd yyyy, p")}</p>
       </motion.footer>
