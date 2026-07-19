@@ -55,9 +55,6 @@ const StyledWrapper = styled.div`
     cursor: pointer;
     font-size: 20px;
     user-select: none;
-    padding: 10px;
-    border-radius: 50%;
-    background-color: #212121;
   }
 
   /* Create a custom checkbox */
@@ -66,43 +63,38 @@ const StyledWrapper = styled.div`
     height: 44px;
     width: 44px;
     border-radius: 10em;
-    background-color: #212121;
+    background-color: var(--color-grey-100);
+    border: 1px solid var(--color-grey-300);
+    box-shadow: var(--shadow-md);
     transition: 0.3s;
-    box-shadow:
-      4px 4px 6px #000000,
-      -4px -4px 6px #3c3c3c;
   }
 
   .ac-checkmark svg {
-    width: 28px;
-    height: 28px;
-    margin-top: 7px;
-    margin-left: 8px;
-    fill: #264d39;
+    width: 26px;
+    height: 26px;
+    margin-top: 8px;
+    margin-left: 9px;
+    fill: var(--color-grey-400);
     transition: 0.2s;
   }
 
   .ac-checkmark:active {
-    box-shadow:
-      2px 2px 3px #000000,
-      -2px -2px 3px #3c3c3c;
+    box-shadow: var(--shadow-sm);
   }
 
   /* When the checkbox is checked */
   .ac-container input:checked ~ .ac-checkmark {
-    box-shadow:
-      4px 4px 6px #000000,
-      -4px -4px 6px #3c3c3c;
+    background-color: var(--color-brand-600);
+    border-color: var(--color-brand-600);
+    box-shadow: var(--shadow-md);
   }
 
   .ac-container input:checked ~ .ac-checkmark svg {
-    fill: #00ff7b;
+    fill: #ffffff;
   }
 
   .ac-container input:checked ~ .ac-checkmark:active {
-    box-shadow:
-      2px 2px 3px #000000,
-      -2px -2px 3px #3c3c3c;
+    box-shadow: var(--shadow-sm);
   }
 `;
 
