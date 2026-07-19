@@ -32,7 +32,7 @@ export default function CabinRow({ cabin }) {
     <Table.Row role="row">
       <img
         src={imgURL}
-        className="animate-cabin-image block aspect-[3/2] w-[6.4rem] origin-center scale-150 translate-x-[-7px] object-cover object-center transition-transform duration-300 ease-out hover:scale-[1.65]"
+        className="block aspect-[3/2] w-[6.4rem] origin-center scale-150 translate-x-[-7px] object-cover object-center transition-transform duration-300 ease-out hover:scale-[1.65]"
       />
       <div className="font-sono text-[1.6rem] font-semibold text-grey-600">
         {name}
