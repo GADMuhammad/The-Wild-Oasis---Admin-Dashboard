@@ -26,6 +26,20 @@ An internal admin dashboard for a cabin/hotel booking business. Staff use it to 
 - [date-fns](https://date-fns.org/) for date logic
 - [react-hot-toast](https://react-hot-toast.com/) for notifications
 - [react-error-boundary](https://github.com/bvaughn/react-error-boundary) for top-level error handling
+- [Motion](https://motion.dev/) (`motion/react`) for animation
+
+## Animations
+
+Content that renders as a list or a group of sections cascades in with a staggered fade/slide-up (via `motion/react`), rather than appearing all at once:
+
+- **Tables** — `Table.Body` rows (bookings, cabins).
+- **Dashboard** — the stat tiles, "Today" panel, and both charts.
+- **Booking detail** — `BookingDataBox`, cascading header → guest info → data items → price bar → footer.
+- **Check-in** — the whole check-in page, with the nested `BookingDataBox` cascade folded into the page-level sequence.
+- **Forms** — `SignupForm` and `UpdateSettingsForm`, cascading field-by-field via `Form`/`FormRow`.
+- **Settings** and **Users** pages — heading in, then the form.
+
+The shared `ui` primitives that sit in these paths (`Row`, `Heading`, `Form`, `FormRow`, `DataItem`, `DashboardBox`) are animation-*capable* rather than animated: each is a `motion` element with a `variants` prop, but only animates when a page-level ancestor sets `initial`/`animate` and the variant labels (`hidden`/`show`) propagate down. This keeps every other usage of those components inert by default, and avoids extra wrapper `<div>`s that would break sibling-position CSS (e.g. `first:`/`last:`/`not-last:` selectors on table rows and form rows).
 
 ## Getting Started
 
