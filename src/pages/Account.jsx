@@ -6,9 +6,7 @@ import Row from "../ui/Row";
 
 const containerVariants = {
   hidden: {},
-  show: {
-    transition: { staggerChildren: 0.1 },
-  },
+  show: { transition: { staggerChildren: 0.1 } },
 };
 
 const itemVariants = {
